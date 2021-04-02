@@ -1,9 +1,9 @@
 package algorithm
 
 import (
-	"Triangula/algorithm/evaluator"
-	"Triangula/mutation"
-	"Triangula/normgeom"
+	"github.com/RH12503/Triangula/algorithm/evaluator"
+	"github.com/RH12503/Triangula/mutation"
+	"github.com/RH12503/Triangula/normgeom"
 	"github.com/panjf2000/ants/v2"
 	"sort"
 	"time"

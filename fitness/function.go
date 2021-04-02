@@ -3,7 +3,7 @@
 
 package fitness
 
-import "Triangula/normgeom"
+import "github.com/RH12503/Triangula/normgeom"
 
 // A Function returns a fitness given a point group
 type Function interface {

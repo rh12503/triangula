@@ -1,7 +1,7 @@
 package generator
 
 import (
-	"Triangula/normgeom"
+	"github.com/RH12503/Triangula/normgeom"
 	"math/rand"
 )
 

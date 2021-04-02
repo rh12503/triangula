@@ -1,6 +1,6 @@
 package algorithm
 
-import "Triangula/mutation"
+import "github.com/RH12503/Triangula/mutation"
 
 // FitnessData stores the fitness of a point group
 type FitnessData struct {

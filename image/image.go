@@ -3,7 +3,7 @@
 package image
 
 import (
-	"Triangula/color"
+	"github.com/RH12503/Triangula/color"
 	"image"
 )
 

@@ -1,10 +1,10 @@
 package testutils
 
 import (
-	"Triangula/algorithm"
 	"bufio"
 	"encoding/json"
 	"fmt"
+	"github.com/RH12503/Triangula/algorithm"
 	"io/ioutil"
 	"log"
 	"os"

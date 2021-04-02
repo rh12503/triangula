@@ -2,7 +2,7 @@
 
 package generator
 
-import "Triangula/normgeom"
+import "github.com/RH12503/Triangula/normgeom"
 
 // A Generator is used to generate a normgeom.NormPointGroup
 type Generator interface {

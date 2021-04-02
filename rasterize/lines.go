@@ -1,6 +1,6 @@
 package rasterize
 
-import "Triangula/geom"
+import "github.com/RH12503/Triangula/geom"
 
 // DDATriangleLines calls function line for each horizontal line a geom.Triangle covers.
 // The Digital Differential Analyzer line rasterization algorithm is used.

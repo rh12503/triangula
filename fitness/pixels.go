@@ -1,7 +1,7 @@
 package fitness
 
 import (
-	"Triangula/image"
+	"github.com/RH12503/Triangula/image"
 )
 
 // pixelData stores the data relating to the pixels of an image, and is used in TrianglesImageEvaluator.
@@ -14,7 +14,6 @@ type pixelData struct {
 func (p pixelData) Size() (int, int) {
 	return p.width, p.height
 }
-
 
 // pixel stores RGB values of a pixel as well as the sum of the squares of them. These values are used in TrianglesImageEvaluator.
 type pixel struct {
@@ -57,7 +56,7 @@ func fromImage(image image.Data) pixelData {
 // pixelDataN stores the sum of RGB values of pixels in a N*N block.
 // This speeds up performance as the variation can be calculated in blocks instead of each individual pixel
 type pixelDataN struct {
-	pixels        [][]pixelN
+	pixels [][]pixelN
 }
 
 // pixel stores RGB values of a pixel as well as the sum of the squares of them in a N*N block.

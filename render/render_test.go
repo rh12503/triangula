@@ -1,9 +1,9 @@
 package render
 
 import (
-	"Triangula/geom"
-	"Triangula/image"
-	"Triangula/normgeom"
+	"github.com/RH12503/Triangula/geom"
+	"github.com/RH12503/Triangula/image"
+	"github.com/RH12503/Triangula/normgeom"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

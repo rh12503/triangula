@@ -1,7 +1,7 @@
 package rasterize
 
 import (
-	"Triangula/geom"
+	"github.com/RH12503/Triangula/geom"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -35,7 +35,7 @@ func TestDDATriangleBlocks(t *testing.T) {
 		pixels += x1 - x0
 		lines++
 	}, func(x, y int) {
-		pixels += blockSize*blockSize
+		pixels += blockSize * blockSize
 		blocks++
 
 	})

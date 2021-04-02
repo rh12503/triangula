@@ -1,9 +1,9 @@
 package fitness
 
 import (
-	image2 "Triangula/image"
-	"Triangula/normgeom"
-	"Triangula/random"
+	image2 "github.com/RH12503/Triangula/image"
+	"github.com/RH12503/Triangula/normgeom"
+	"github.com/RH12503/Triangula/random"
 	"github.com/stretchr/testify/assert"
 	"image"
 	"image/color"
@@ -48,9 +48,6 @@ func TestPixels(t *testing.T) {
 	assert.Equal(t, len(pixels.pixels[0]), 100)
 
 	pixelsN := newPixelDataN(100, 50, blockSize)
-	assert.Equal(t, len(pixelsN.pixels), 50 - blockSize + 1)
-	assert.Equal(t, len(pixelsN.pixels[0]), 100 - blockSize + 1)
+	assert.Equal(t, len(pixelsN.pixels), 50-blockSize+1)
+	assert.Equal(t, len(pixelsN.pixels[0]), 100-blockSize+1)
 }
-
-
-

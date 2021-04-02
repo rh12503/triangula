@@ -1,8 +1,8 @@
 package mutation
 
 import (
-	"Triangula/normgeom"
-	"Triangula/random"
+	"github.com/RH12503/Triangula/normgeom"
+	"github.com/RH12503/Triangula/random"
 )
 
 // gaussianMethod uses gaussian random number while calculating the magnitude of a mutation.
@@ -23,8 +23,8 @@ func (g gaussianMethod) Mutate(points normgeom.NormPointGroup, mutated func(muta
 			points[i].Constrain()
 
 			mutated(Mutation{
-				Old:      old,
-				New:      points[i],
+				Old:   old,
+				New:   points[i],
 				Index: i,
 			})
 		}

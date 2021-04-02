@@ -1,9 +1,9 @@
 package triangulation
 
 import (
-	"Triangula/geom"
-	"Triangula/normgeom"
-	"Triangula/triangulation/delaunay"
+	"github.com/RH12503/Triangula/geom"
+	"github.com/RH12503/Triangula/normgeom"
+	"github.com/RH12503/Triangula/triangulation/delaunay"
 	"math"
 )
 
@@ -23,12 +23,12 @@ func Triangulate(points normgeom.NormPointGroup, w, h int) ([]geom.Triangle, int
 
 	triangles := triangulation.Triangles
 
-	numTris := len(triangles)/3
+	numTris := len(triangles) / 3
 
 	newTriangles := make([]geom.Triangle, numTris)
 
 	for i := 0; i < numTris; i++ {
-		in := i*3
+		in := i * 3
 		a := group[triangles[in]]
 		b := group[triangles[in+1]]
 		c := group[triangles[in+2]]
@@ -45,12 +45,12 @@ func TriangulatePoints(points []delaunay.Point) ([]geom.Triangle, int) {
 
 	triangles := triangulation.Triangles
 
-	numTris := len(triangles)/3
+	numTris := len(triangles) / 3
 
 	newTriangles := make([]geom.Triangle, numTris)
 
 	for i := 0; i < numTris; i++ {
-		in := i*3
+		in := i * 3
 		a := points[triangles[in]]
 		b := points[triangles[in+1]]
 		c := points[triangles[in+2]]
@@ -60,7 +60,6 @@ func TriangulatePoints(points []delaunay.Point) ([]geom.Triangle, int) {
 
 	return newTriangles, Area(triangulation.ConvexHull())
 }
-
 
 // Adapted from: https://www.geeksforgeeks.org/area-of-a-polygon-with-given-n-ordered-vertices/
 func Area(polygon []delaunay.Point) int {

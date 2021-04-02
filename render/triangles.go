@@ -3,11 +3,11 @@
 package render
 
 import (
-	"Triangula/color"
-	"Triangula/geom"
-	"Triangula/image"
-	"Triangula/normgeom"
-	"Triangula/rasterize"
+	"github.com/RH12503/Triangula/color"
+	"github.com/RH12503/Triangula/geom"
+	"github.com/RH12503/Triangula/image"
+	"github.com/RH12503/Triangula/normgeom"
+	"github.com/RH12503/Triangula/rasterize"
 )
 
 // TriangleData stores a triangle and it's color

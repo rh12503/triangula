@@ -1,7 +1,7 @@
 package testutils
 
 import (
-	"Triangula/algorithm"
+	"github.com/RH12503/Triangula/algorithm"
 	"log"
 	"os"
 	"runtime/pprof"

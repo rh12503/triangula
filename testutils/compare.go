@@ -1,9 +1,9 @@
 package testutils
 
 import (
-	"Triangula/algorithm"
-	"Triangula/random"
 	"fmt"
+	"github.com/RH12503/Triangula/algorithm"
+	"github.com/RH12503/Triangula/random"
 	"math/rand"
 	"time"
 )

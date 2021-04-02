@@ -1,9 +1,9 @@
 package evaluator
 
 import (
-	"Triangula/fitness"
-	"Triangula/image"
-	"Triangula/normgeom"
+	"github.com/RH12503/Triangula/fitness"
+	"github.com/RH12503/Triangula/image"
+	"github.com/RH12503/Triangula/normgeom"
 )
 
 // parallel is a fitness evaluator that supports parallel calculations.
@@ -12,8 +12,8 @@ import (
 type parallel struct {
 	evaluators []*fitness.TrianglesImageEvaluator
 
-	cache      []fitness.TriFit // The current triangle cache being used by the fitness functions
-	nextCache  []fitness.TriFit // The cache for the next generation
+	cache     []fitness.TriFit // The current triangle cache being used by the fitness functions
+	nextCache []fitness.TriFit // The cache for the next generation
 }
 
 func (p parallel) Get(i int) fitness.Function {

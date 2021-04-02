@@ -1,4 +1,4 @@
-module Triangula
+module github.com/RH12503/Triangula
 
 go 1.15
 

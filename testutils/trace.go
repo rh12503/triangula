@@ -1,8 +1,8 @@
 package testutils
 
 import (
-	"Triangula/algorithm"
 	"bufio"
+	"github.com/RH12503/Triangula/algorithm"
 	"os"
 	"runtime/trace"
 )

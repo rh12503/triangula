@@ -1,12 +1,12 @@
 package testutils
 
 import (
-	"Triangula/algorithm"
-	"Triangula/draw"
-	imageData "Triangula/image"
-	"Triangula/render"
-	"Triangula/triangulation"
 	"fmt"
+	"github.com/RH12503/Triangula/algorithm"
+	"github.com/RH12503/Triangula/draw"
+	imageData "github.com/RH12503/Triangula/image"
+	"github.com/RH12503/Triangula/render"
+	"github.com/RH12503/Triangula/triangulation"
 )
 
 var currentAlgorithm algorithm.Algorithm

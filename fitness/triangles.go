@@ -1,11 +1,11 @@
 package fitness
 
 import (
-	"Triangula/geom"
-	"Triangula/image"
-	"Triangula/normgeom"
-	"Triangula/rasterize"
-	"Triangula/triangulation/incrdelaunay"
+	"github.com/RH12503/Triangula/geom"
+	"github.com/RH12503/Triangula/image"
+	"github.com/RH12503/Triangula/normgeom"
+	"github.com/RH12503/Triangula/rasterize"
+	"github.com/RH12503/Triangula/triangulation/incrdelaunay"
 	"math"
 )
 
@@ -20,7 +20,7 @@ const maxPixelDifference = 255 * 255 * 3
 // optimal color of each triangle. Finally, it iterates through the pixels of the triangles and calculates
 // the variance to the target image. (The lower the variance the better)
 type TrianglesImageEvaluator struct {
-	target    pixelData // variance data relating to the pixels of the target image
+	target pixelData // variance data relating to the pixels of the target image
 
 	// Variance data stored in blocks of pixels. The variance of a N*N block can easily be found instead of
 	// needing to iterate through N*N pixels
@@ -33,7 +33,7 @@ type TrianglesImageEvaluator struct {
 
 	// The variance calculated for each triangle are put here. This means if the triangles don't change
 	// in the next generation, they won't need to be reevaluated.
-	NextCache     []TriFit
+	NextCache []TriFit
 
 	added, removed []normgeom.NormPoint // Lists storing which generator have been modified
 
@@ -104,12 +104,12 @@ func (t *TrianglesImageEvaluator) Calculate(points normgeom.NormPointGroup) floa
 		area += math.Abs(0.5 * ((float64(b.X-a.X) * float64(c.Y-a.Y)) - (float64(c.X-a.X) * float64(b.Y-a.Y))))
 
 		triData := TriFit{
-			aX:        a.X,
-			aY:        a.Y,
-			bX:        b.X,
-			bY:        b.Y,
-			cX:        c.X,
-			cY:        c.Y,
+			aX: a.X,
+			aY: a.Y,
+			bX: b.X,
+			bY: b.Y,
+			cX: c.X,
+			cY: c.Y,
 		}
 
 		hash := triData.Hash()
@@ -127,7 +127,7 @@ func (t *TrianglesImageEvaluator) Calculate(points normgeom.NormPointGroup) floa
 			var sR0, sG0, sB0 int
 			var sSq int
 
-			tri := geom.NewTriangle(int(a.X),int(a.Y),int(b.X),int(b.Y),int(c.X),int(c.Y))
+			tri := geom.NewTriangle(int(a.X), int(a.Y), int(b.X), int(b.Y), int(c.X), int(c.Y))
 
 			rasterize.DDATriangleBlocks(tri, t.blockSize, func(x0, x1, y int) {
 				row := pixels[y]
@@ -212,7 +212,7 @@ func NewTrianglesImageEvaluator(target image.Data, blockSize int) *TrianglesImag
 	return &TrianglesImageEvaluator{
 		target:        fromImage(target),
 		targetN:       fromImageN(target, blockSize),
-		blockSize: blockSize,
+		blockSize:     blockSize,
 		maxDifference: float64(maxPixelDifference * w * h),
 		TriangleCache: make([]TriFit, 2),
 	}

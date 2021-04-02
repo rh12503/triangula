@@ -1,7 +1,7 @@
 package mutation
 
 import (
-	"Triangula/normgeom"
+	"github.com/RH12503/Triangula/normgeom"
 	"math/rand"
 )
 
@@ -19,8 +19,8 @@ func (r randomMethod) Mutate(points normgeom.NormPointGroup, mutated func(mutati
 			points[i].Y += (rand.Float64() - 0.5) * r.amount
 			points[i].Constrain()
 			mutated(Mutation{
-				Old:      old,
-				New:      points[i],
+				Old:   old,
+				New:   points[i],
 				Index: i,
 			})
 		}

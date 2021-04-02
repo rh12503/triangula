@@ -1,7 +1,7 @@
 package rasterize
 
 import (
-	"Triangula/geom"
+	"github.com/RH12503/Triangula/geom"
 	"math"
 )
 

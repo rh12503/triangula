@@ -3,7 +3,7 @@
 package algorithm
 
 import (
-	"Triangula/normgeom"
+	"github.com/RH12503/Triangula/normgeom"
 	"time"
 )
 

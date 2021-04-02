@@ -1,7 +1,7 @@
 package mutation
 
 import (
-	"Triangula/normgeom"
+	"github.com/RH12503/Triangula/normgeom"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

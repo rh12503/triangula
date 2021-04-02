@@ -3,7 +3,7 @@
 package rasterize
 
 import (
-	"Triangula/geom"
+	"github.com/RH12503/Triangula/geom"
 )
 
 // DDATriangle calls function pixel for each pixel a geom.Triangle covers.

@@ -1,12 +1,12 @@
 package algorithm
 
 import (
-	"Triangula/algorithm/evaluator"
-	imageData "Triangula/image"
-	"Triangula/mutation"
-	"Triangula/normgeom"
-	"Triangula/generator"
-	"Triangula/random"
+	"github.com/RH12503/Triangula/algorithm/evaluator"
+	"github.com/RH12503/Triangula/generator"
+	imageData "github.com/RH12503/Triangula/image"
+	"github.com/RH12503/Triangula/mutation"
+	"github.com/RH12503/Triangula/normgeom"
+	"github.com/RH12503/Triangula/random"
 	"image"
 	"log"
 	"math/rand"
@@ -50,7 +50,6 @@ func BenchmarkAlgorithm(b *testing.B) {
 	mutator := mutation.NewGaussianMethod(0.001, 0.3)
 
 	algo := NewModifiedGenetic(pointFactory, 500, 5, evaluatorFactory, mutator)
-
 
 	real := func() {
 		for i := 0; i < 10000; i++ {

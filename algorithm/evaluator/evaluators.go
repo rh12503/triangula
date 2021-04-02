@@ -4,8 +4,8 @@
 package evaluator
 
 import (
-	"Triangula/fitness"
-	"Triangula/normgeom"
+	"github.com/RH12503/Triangula/fitness"
+	"github.com/RH12503/Triangula/normgeom"
 )
 
 // An Evaluator contains an arbitrary number of fitness.Function's and is used by an algorithm.Algorithm
