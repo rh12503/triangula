@@ -30,5 +30,10 @@ func (argb *AverageRGB) Add(rgb RGB) {
 // Average returns a RGB which is the average of all added colors
 func (argb AverageRGB) Average() RGB {
 	c := float64(argb.count)
-	return NewNormRGB(argb.rgb.R / c, argb.rgb.G / c, argb.rgb.B / c)
+	return NewNormRGB(argb.rgb.R/c, argb.rgb.G/c, argb.rgb.B/c)
+}
+
+// Count returns the number of colors added to the average
+func (argb AverageRGB) Count() uint {
+	return argb.count
 }
