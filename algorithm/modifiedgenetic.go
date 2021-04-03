@@ -2,6 +2,7 @@ package algorithm
 
 import (
 	"github.com/RH12503/Triangula/algorithm/evaluator"
+	"github.com/RH12503/Triangula/fitness"
 	"github.com/RH12503/Triangula/mutation"
 	"github.com/RH12503/Triangula/normgeom"
 	"github.com/panjf2000/ants/v2"
@@ -81,7 +82,6 @@ func (g *modifiedGenetic) newGeneration() {
 
 			g.evaluator.SetBase(i, j)
 			g.mutator.Mutate(g.newPopulation[i], func(mut mutation.Mutation) {
-				g.evaluator.Changed(i, mut.Old, mut.New)
 				g.mutations[i] = append(g.mutations[i], mut)
 			})
 			i++
@@ -106,7 +106,10 @@ func (g *modifiedGenetic) calculateFitnesses() {
 		// Workers calculate the fitness of each member
 		ants.Submit(
 			func() {
-				fit := e.Calculate(p)
+				fit := e.Calculate(fitness.PointsData{
+					Points:    p,
+					Mutations: g.mutations[i],
+				})
 				ch <- FitnessData{
 					I:       i,
 					Fitness: fit,
@@ -171,6 +174,7 @@ func (g *modifiedGenetic) setBeneficial(index int) {
 func (g *modifiedGenetic) combineMutations() {
 	// The members with the combined mutations are at the end
 	for i := len(g.population) - g.cutoff; i < len(g.population); i++ {
+		g.mutations[i] = g.mutations[i][:0]
 		base := g.getBase(i)
 		if g.beneficialMutations[base].Count() > 0 {
 			// If there are any beneficial mutations, set the member to its base and perform all the mutations
@@ -178,16 +182,19 @@ func (g *modifiedGenetic) combineMutations() {
 			g.evaluator.SetBase(i, base)
 
 			for _, m := range g.beneficialMutations[base].Mutations {
-				g.evaluator.Changed(i, m.Old, m.New)
 				g.population[i][m.Index].X = m.New.X
 				g.population[i][m.Index].Y = m.New.Y
+				g.mutations[i] = append(g.mutations[i], m)
 			}
 
 			g.fitnesses[i].I = i
 
 			// Calculate the fitness of the new member
 			e := g.evaluator.Get(i)
-			fit := e.Calculate(g.population[i])
+			fit := e.Calculate(fitness.PointsData{
+				Points:    g.population[i],
+				Mutations: g.mutations[i],
+			})
 			g.fitnesses[i].Fitness = fit
 			g.evaluator.Update(i)
 		} else {

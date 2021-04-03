@@ -3,7 +3,6 @@ package fitness
 import (
 	"github.com/RH12503/Triangula/geom"
 	"github.com/RH12503/Triangula/image"
-	"github.com/RH12503/Triangula/normgeom"
 	"github.com/RH12503/Triangula/rasterize"
 	"github.com/RH12503/Triangula/triangulation/incrdelaunay"
 	"math"
@@ -35,13 +34,13 @@ type TrianglesImageEvaluator struct {
 	// in the next generation, they won't need to be reevaluated.
 	NextCache []TriFit
 
-	added, removed []normgeom.NormPoint // Lists storing which generator have been modified
-
 	Triangulation *incrdelaunay.Delaunay
 	Base          *incrdelaunay.Delaunay // The triangulation which the generator used last generation
 }
 
-func (t *TrianglesImageEvaluator) Calculate(points normgeom.NormPointGroup) float64 {
+func (t *TrianglesImageEvaluator) Calculate(data PointsData) float64 {
+	points := data.Points
+
 	w, h := t.target.Size()
 
 	// Needs to be cleaned up.
@@ -59,26 +58,23 @@ func (t *TrianglesImageEvaluator) Calculate(points normgeom.NormPointGroup) floa
 		t.Triangulation.Set(t.Base)
 
 		// And then modify the generator that have been mutated
-		for _, p := range t.removed {
+		for _, m := range data.Mutations {
 			t.Triangulation.Remove(incrdelaunay.Point{
-				X: int16(fastRound(p.X * float64(w))),
-				Y: int16(fastRound(p.Y * float64(h))),
+				X: int16(fastRound(m.Old.X * float64(w))),
+				Y: int16(fastRound(m.Old.Y * float64(h))),
 			})
 		}
 
-		for _, p := range t.added {
+		for _, m := range data.Mutations {
 			t.Triangulation.Insert(incrdelaunay.Point{
-				X: int16(fastRound(p.X * float64(w))),
-				Y: int16(fastRound(p.Y * float64(h))),
+				X: int16(fastRound(m.New.X * float64(w))),
+				Y: int16(fastRound(m.New.Y * float64(h))),
 			})
 		}
 	}
 
 	// Prepare for next generation
 	t.Base = nil
-
-	t.removed = t.removed[:0]
-	t.added = t.added[:0]
 
 	t.NextCache = t.NextCache[:0]
 
@@ -175,12 +171,6 @@ func (t *TrianglesImageEvaluator) Calculate(points normgeom.NormPointGroup) floa
 	return 1 - (difference / t.maxDifference)
 }
 
-// PointMoved is called to indicate which generator have been modified
-func (t *TrianglesImageEvaluator) PointMoved(old, new normgeom.NormPoint) {
-	t.removed = append(t.removed, old)
-	t.added = append(t.added, new)
-}
-
 // TrianglesImageEvaluators returns an array of the fitness evaluator
 func TrianglesImageEvaluators(target image.Data, blockSize, n int) []*TrianglesImageEvaluator {
 	w, h := target.Size()
@@ -216,34 +206,4 @@ func NewTrianglesImageEvaluator(target image.Data, blockSize int) *TrianglesImag
 		maxDifference: float64(maxPixelDifference * w * h),
 		TriangleCache: make([]TriFit, 2),
 	}
-}
-
-// TriFit stores the triangles vertices and its fitness. The struct is used to cache calculations
-type TriFit struct {
-	aX, aY    int16
-	bX, bY    int16
-	cX, cY    int16
-	fitness   float64
-	OtherHash uint32
-}
-
-func (t TriFit) Equals(other TriFit) bool {
-	return t.aX == other.aX && t.aY == other.aY &&
-		t.bX == other.bX && t.bY == other.bY &&
-		t.cX == other.cX && t.cY == other.cY
-}
-
-// Hash calculates the hash of a TriFit
-func (t TriFit) Hash() uint64 {
-	x := int(t.aX) + int(t.bX) + int(t.cX)
-	y := int(t.aY) + int(t.bY) + int(t.cY)
-
-	hash := uint64((53+x)*53 + y)
-
-	return hash
-}
-
-// fastRound is an optimized version of math.Round
-func fastRound(n float64) int {
-	return int(n+0.5) << 0
 }

@@ -3,10 +3,8 @@
 
 package fitness
 
-import "github.com/RH12503/Triangula/normgeom"
-
 // A Function returns a fitness given a point group
 type Function interface {
 	// Calculate evaluates a point group and returns a fitness. "Better" generator should have higher fitnesses.zww
-	Calculate(points normgeom.NormPointGroup) float64
+	Calculate(data PointsData) float64
 }

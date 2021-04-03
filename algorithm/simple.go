@@ -2,6 +2,7 @@ package algorithm
 
 import (
 	"github.com/RH12503/Triangula/algorithm/evaluator"
+	"github.com/RH12503/Triangula/fitness"
 	"github.com/RH12503/Triangula/mutation"
 	"github.com/RH12503/Triangula/normgeom"
 	"github.com/panjf2000/ants/v2"
@@ -24,7 +25,7 @@ type simple struct {
 
 	fitnesses []FitnessData // fitnesses[i] is the fitness of population[i]
 
-	mutations [][]mutation.Mutation // Stores the mutations made in newGeneration so beneficial mutations can later be combined in combineMutations
+	mutations [][]mutation.Mutation // Stores the mutations made in newGeneration
 
 	best normgeom.NormPointGroup // The member of the population with the highest fitness
 
@@ -58,7 +59,10 @@ func (s *simple) calculateFitnesses() {
 		e := s.evaluator.Get(i)
 		ants.Submit(
 			func() {
-				fit := e.Calculate(p)
+				fit := e.Calculate(fitness.PointsData{
+					Points:    p,
+					Mutations: s.mutations[i],
+				})
 				ch <- FitnessData{
 					I:       i,
 					Fitness: fit,
@@ -96,15 +100,17 @@ func (s *simple) newGeneration() {
 
 	for ; i < s.cutoff; i++ {
 		s.newPopulation[i].Set(s.population[i])
+		s.mutations[i] = s.mutations[i][:0]
 	}
 
 	for i < len(s.population) {
 		for j := 0; j < s.cutoff && i < len(s.population); j++ {
+			s.mutations[i] = s.mutations[i][:0] // clear all previous mutations
 			s.newPopulation[i].Set(s.population[j])
 
 			s.evaluator.SetBase(i, j)
-			s.mutator.Mutate(s.newPopulation[i], func(mutation mutation.Mutation) {
-				s.evaluator.Changed(i, mutation.Old, mutation.New)
+			s.mutator.Mutate(s.newPopulation[i], func(mut mutation.Mutation) {
+				s.mutations[i] = append(s.mutations[i], mut)
 			})
 			i++
 		}

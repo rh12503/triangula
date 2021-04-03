@@ -5,7 +5,6 @@ package evaluator
 
 import (
 	"github.com/RH12503/Triangula/fitness"
-	"github.com/RH12503/Triangula/normgeom"
 )
 
 // An Evaluator contains an arbitrary number of fitness.Function's and is used by an algorithm.Algorithm
@@ -23,9 +22,6 @@ type Evaluator interface {
 	// SetBase indicates the base of member i
 	SetBase(i, base int)
 
-	// Changed should be called if a point has been changed for member i
-	Changed(i int, old, new normgeom.NormPoint)
-
 	// Swap should be called if members i and j are swapped
 	Swap(i, j int)
 }
@@ -36,9 +32,6 @@ type one struct {
 }
 
 func (o one) SetBase(i, base int) {
-}
-
-func (o one) Changed(i int, old, new normgeom.NormPoint) {
 }
 
 func (o one) Swap(i, j int) {
@@ -66,9 +59,6 @@ type many struct {
 }
 
 func (m many) SetBase(i, base int) {
-}
-
-func (m many) Changed(i int, old, new normgeom.NormPoint) {
 }
 
 func (m many) Swap(i, j int) {

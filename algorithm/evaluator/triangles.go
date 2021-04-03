@@ -3,7 +3,6 @@ package evaluator
 import (
 	"github.com/RH12503/Triangula/fitness"
 	"github.com/RH12503/Triangula/image"
-	"github.com/RH12503/Triangula/normgeom"
 )
 
 // parallel is a fitness evaluator that supports parallel calculations.
@@ -37,10 +36,6 @@ func (p *parallel) Update(i int) {
 
 func (p *parallel) SetBase(i, base int) {
 	p.evaluators[i].Base = p.evaluators[base].Triangulation
-}
-
-func (p *parallel) Changed(i int, old, new normgeom.NormPoint) {
-	p.evaluators[i].PointMoved(old, new)
 }
 
 func (p *parallel) Swap(i, j int) {
