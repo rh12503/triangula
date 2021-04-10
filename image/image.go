@@ -1,5 +1,4 @@
 // Package image contains a struct to store the data of an image.
-
 package image
 
 import (

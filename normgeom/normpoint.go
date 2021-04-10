@@ -1,6 +1,5 @@
 // Package normgeom contains similar structs to the geom package, except all coordinates
 // are normalized between 0 and 1.
-
 package normgeom
 
 import (

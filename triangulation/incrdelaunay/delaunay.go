@@ -1,6 +1,5 @@
 // Package incrdelaunay implements a library for incremental Delaunay triangulation, with support for
 // dynamically adding and removing points.
-
 package incrdelaunay
 
 import (

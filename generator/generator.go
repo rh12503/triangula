@@ -1,5 +1,4 @@
-// Package generator provides an interface and implementations of generators to create a normgeom.NormPointGroup
-
+// Package generator provides an interface and implementations of generators to create a group of points.
 package generator
 
 import "github.com/RH12503/Triangula/normgeom"

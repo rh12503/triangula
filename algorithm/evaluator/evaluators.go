@@ -1,6 +1,5 @@
 // Package evaluator provides an interface for a fitness evaluator and
 // different implementations for common use cases.
-
 package evaluator
 
 import (

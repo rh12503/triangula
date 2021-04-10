@@ -1,3 +1,4 @@
+// Package triangulation provides utilities for creating Delaunay triangulations.
 package triangulation
 
 import (

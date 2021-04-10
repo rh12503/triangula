@@ -1,6 +1,5 @@
 // Package random uses github.com/dgryski/go-pcgr to implement a faster implementation
 // of the rand package.
-
 package random
 
 import (

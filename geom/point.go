@@ -1,5 +1,4 @@
 // Package geom contains structs for representing a Point and a Triangle.
-
 package geom
 
 import (

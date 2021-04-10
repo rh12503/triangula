@@ -1,5 +1,4 @@
 // Package mutation provides an interface for a mutation method and some common implementations.
-
 package mutation
 
 import (

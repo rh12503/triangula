@@ -1,5 +1,4 @@
-// Package color provides structs relating to RGB colors.
-
+// Package color provides structs related to RGB colors.
 package color
 
 // RGB represents a color with its values normalized between 0 to 1

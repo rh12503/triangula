@@ -1,7 +1,7 @@
 // Package delaunay is almost completely identical to fogleman's excellent Delaunay triangulation
 // library, with some modifications for utility and speed.
+//
 // Full credits to: https://github.com/fogleman/delaunay
-
 package delaunay
 
 import (

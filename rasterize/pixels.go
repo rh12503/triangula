@@ -1,5 +1,4 @@
 // Package rasterize provides different functions for several use cases to rasterize a triangle.
-
 package rasterize
 
 import (

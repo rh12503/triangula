@@ -1,5 +1,4 @@
-// Package render implements utilities for rendering triangles onto an image
-
+// Package render implements utilities for rendering triangles onto an image.
 package render
 
 import (
