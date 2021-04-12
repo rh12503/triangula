@@ -31,10 +31,10 @@ func NewCircumcircleGrid(cols, rows, w, h int) CircumcircleGrid {
 func (c *CircumcircleGrid) AddTriangle(t Triangle, index uint16) {
 	// Find all the boxes of the grid that the triangle's circumcircle intersects
 	radius := t.Circumcircle.Radius + 0.001
-	topLeftX := int(float64(t.Circumcircle.cX - radius) / c.colPixels)
-	topLeftY := int(float64(t.Circumcircle.cY - radius) / c.rowPixels)
-	bottomRightX := int(math.Ceil(float64(t.Circumcircle.cX + radius) / c.colPixels))
-	bottomRightY := int(math.Ceil(float64(t.Circumcircle.cY + radius) / c.rowPixels))
+	topLeftX := int(float64(t.Circumcircle.cX-radius) / c.colPixels)
+	topLeftY := int(float64(t.Circumcircle.cY-radius) / c.rowPixels)
+	bottomRightX := int(math.Ceil(float64(t.Circumcircle.cX+radius) / c.colPixels))
+	bottomRightY := int(math.Ceil(float64(t.Circumcircle.cY+radius) / c.rowPixels))
 
 	if topLeftX < 0 {
 		topLeftX = 0
@@ -64,10 +64,10 @@ func (c *CircumcircleGrid) AddTriangle(t Triangle, index uint16) {
 func (c *CircumcircleGrid) RemoveTriangle(tri Triangle, index uint16) {
 	// Find all the boxes of the grid that the triangle's circumcircle intersects
 	radius := tri.Circumcircle.Radius + 0.001
-	topLeftX := int(float64(tri.Circumcircle.cX - radius) / c.colPixels)
-	topLeftY := int(float64(tri.Circumcircle.cY - radius) / c.rowPixels)
-	bottomRightX := int(math.Ceil(float64(tri.Circumcircle.cX + radius) / c.colPixels))
-	bottomRightY := int(math.Ceil(float64(tri.Circumcircle.cY + radius) / c.rowPixels))
+	topLeftX := int(float64(tri.Circumcircle.cX-radius) / c.colPixels)
+	topLeftY := int(float64(tri.Circumcircle.cY-radius) / c.rowPixels)
+	bottomRightX := int(math.Ceil(float64(tri.Circumcircle.cX+radius) / c.colPixels))
+	bottomRightY := int(math.Ceil(float64(tri.Circumcircle.cY+radius) / c.rowPixels))
 
 	if topLeftX < 0 {
 		topLeftX = 0
@@ -91,7 +91,7 @@ func (c *CircumcircleGrid) RemoveTriangle(tri Triangle, index uint16) {
 			for i, t := range col[y] {
 
 				if t == index {
-					in := len(col[y])-1
+					in := len(col[y]) - 1
 					col[y][i] = col[y][in]
 					col[y] = col[y][:in]
 					break

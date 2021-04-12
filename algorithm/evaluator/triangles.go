@@ -6,13 +6,13 @@ import (
 )
 
 // parallel is a fitness evaluator that supports parallel calculations.
-// It also stores and updates a cache, and uses a fitness.TrianglesImageEvaluator for each member
+// It stores and updates a cache, and contains a fitness.TrianglesImageEvaluator for each member
 // to calculate fitnesses.
 type parallel struct {
 	evaluators []*fitness.TrianglesImageEvaluator
 
-	cache     []fitness.TriFit // The current triangle cache being used by the fitness functions
-	nextCache []fitness.TriFit // The cache for the next generation
+	cache     []fitness.TriFit // The current triangle cache being used by the fitness functions.
+	nextCache []fitness.TriFit // The cache for the next generation.
 }
 
 func (p parallel) Get(i int) fitness.Function {
@@ -26,7 +26,7 @@ func (p *parallel) Prepare() {
 func (p *parallel) Update(i int) {
 	eval := p.evaluators[i]
 
-	// Put the data from the fitness function into the cache
+	// Put triangles that have been calculated from the fitness function into the cache
 	for _, d := range eval.TriangleCache {
 		p.cache[d.OtherHash] = d
 	}

@@ -16,4 +16,3 @@ func TestSpacedGenerator_Generate(t *testing.T) {
 	points := gen.Generate(121)
 	assert.Equal(t, len(points), 121)
 }
-

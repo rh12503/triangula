@@ -11,4 +11,3 @@ func TestNewData(t *testing.T) {
 	assert.Equal(t, w, 100)
 	assert.Equal(t, h, 50)
 }
-

@@ -11,27 +11,28 @@ import (
 )
 
 // An simple is a simplified genetic algorithm.
-// It runs in parallel, scaling across multiple cores.
+// It runs in parallel, scaling well across multiple cores.
+// For most cases, a modifiedGenetic algorithm will be more effective.
 //
 // Firstly, a new generation is chosen based on fitness.
 // Secondly, the fitnesses of the new generation are calculated.
 // Lastly, the fitnesses are sorted in preparation for the next generation.
 type simple struct {
-	evaluator evaluator.Evaluator // Used to calculate fitnesses. There is an unique evaluator for each member of the population
-	mutator   mutation.Method     // Used in newGeneration to mutate members of the population
+	evaluator evaluator.Evaluator // Used to calculate fitnesses.
+	mutator   mutation.Method     // Used in newGeneration to mutate members of the population.
 
-	population    []normgeom.NormPointGroup // The population of the algorithm, storing all the data of the generator
-	newPopulation []normgeom.NormPointGroup // Used in newGeneration
+	population    []normgeom.NormPointGroup // The population of the algorithm.
+	newPopulation []normgeom.NormPointGroup // Used in newGeneration.
 
-	fitnesses []FitnessData // fitnesses[i] is the fitness of population[i]
+	fitnesses []FitnessData // fitnesses[i] is the fitness of population[i].
 
-	mutations [][]mutation.Mutation // Stores the mutations made in newGeneration
+	mutations [][]mutation.Mutation // Stores the mutations made in newGeneration.
 
-	best normgeom.NormPointGroup // The member of the population with the highest fitness
+	best normgeom.NormPointGroup // The member of the population with the highest fitness.
 
-	cutoff int // The number of members that survive to the next generation
+	cutoff int // The number of members that survive to the next generation.
 
-	stats Stats // Simple statistics relating to the algorithm
+	stats Stats // Simple statistics relating to the algorithm.
 }
 
 func (s *simple) Step() {
@@ -49,7 +50,7 @@ func (s *simple) Step() {
 	s.stats.TimeForGen = time.Since(t)
 }
 
-// calculateFitnesses calculates the fitnesses of the current generation
+// calculateFitnesses calculates the fitnesses of the current generation.
 func (s *simple) calculateFitnesses() {
 	ch := make(chan FitnessData, len(s.population))
 
@@ -86,7 +87,7 @@ func (s *simple) calculateFitnesses() {
 	}
 }
 
-// updateFitnesses prepares the calculated fitnesses for the next generation
+// updateFitnesses prepares the members with calculated fitnesses for the next generation.
 func (s *simple) updateFitnesses() {
 	sort.Sort(s)
 
@@ -94,7 +95,7 @@ func (s *simple) updateFitnesses() {
 	s.stats.BestFitness = s.fitnesses[0].Fitness
 }
 
-// newGeneration populates a generation with new members
+// newGeneration populates a generation with new members.
 func (s *simple) newGeneration() {
 	i := 0
 
@@ -141,7 +142,7 @@ func (s *simple) Swap(i, j int) {
 	s.evaluator.Swap(i, j)
 }
 
-// NewSimple returns a new Simple algorithm
+// NewSimple returns a new Simple algorithm.
 func NewSimple(newPointGroup func() normgeom.NormPointGroup, size int, cutoff int,
 	newEvaluators func(n int) evaluator.Evaluator, mutator mutation.Method) *simple {
 	var algo simple

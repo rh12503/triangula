@@ -30,7 +30,6 @@ func Seed(seed int64) {
 	pcg = pcgr.New(seed, 0)
 }
 
-
 const (
 	rn = 3.442619855899
 )

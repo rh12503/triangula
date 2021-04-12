@@ -304,7 +304,7 @@ func (d Delaunay) HasPoint(p Point) bool {
 	return d.grid.HasPoint(p, d.triangles)
 }
 
-// GetClosestTo returns the closest point in the triangulation to point p 
+// GetClosestTo returns the closest point in the triangulation to point p
 func (d Delaunay) GetClosestTo(p Point) Point {
 	var closest Point
 	closestDist := int64(math.MaxInt64)

@@ -10,32 +10,32 @@ import (
 	"time"
 )
 
-// An modifiedGenetic is a genetic algorithm with a different crossover process.
-// It runs in parallel, scaling across multiple cores.
+// An modifiedGenetic is a genetic algorithm with a modified crossover process.
+// It runs in parallel, scaling well across multiple cores.
 //
-// Simply put, each generation a set number of members of the population survive. (defined by cutoff)
-// These members are called "bases", and
-// all other members are mutations are mutated versions of the bases.
-// At the end, for each base, a member is created combining all beneficial mutations for that base.
-// For a full explanation on how the algorithm works see: <add>
+// Simply put, during each generation a set number (the cutoff value) of members of the population with the highest fitnesses are guaranteed to survive.
+// These members are called "bases", and all other members are mutated versions of the bases.
+// At the end, for each base, a copy is created and mutated with all the beneficial mutations found for that base.
+//
+// For a full explanation on how the algorithm works see: https://github.com/RH12503/Triangula/wiki/Explanation-of-the-algorithm.
 type modifiedGenetic struct {
-	evaluator evaluator.Evaluator // Used to calculate fitnesses. There is an unique evaluator for each member of the population
-	mutator   mutation.Method     // Used in newGeneration to mutate members of the population
+	evaluator evaluator.Evaluator // Contains the fitness function(s) used to calculate fitnesses.
+	mutator   mutation.Method     // Used in newGeneration to mutate members of the population.
 
-	population    []normgeom.NormPointGroup // The population of the algorithm, storing all the data of the generator
-	newPopulation []normgeom.NormPointGroup // Used in newGeneration
+	population    []normgeom.NormPointGroup // The population of the algorithm.
+	newPopulation []normgeom.NormPointGroup // Used in newGeneration to generate a new generation from the previous population.
 
-	fitnesses []FitnessData // fitnesses[i] is the fitness of population[i]
+	fitnesses []FitnessData // fitnesses[i] is the fitness of population[i].
 
-	mutations [][]mutation.Mutation // Stores the mutations made in newGeneration so beneficial mutations can later be combined in combineMutations
+	mutations [][]mutation.Mutation // Stores the mutations made in newGeneration so beneficial mutations can later be combined in combineMutations.
 
-	beneficialMutations []MutationsData // Stores the beneficial mutations for each base
+	beneficialMutations []MutationsData // Stores the beneficial mutations for each base.
 
-	best normgeom.NormPointGroup // The member of the population with the highest fitness
+	best normgeom.NormPointGroup // The member of the population with the highest fitness.
 
-	cutoff int // The number of members that survive to the next generation
+	cutoff int // The number of members that are guaranteed to survive to the next generation.
 
-	stats Stats // Simple statistics relating to the algorithm
+	stats Stats // Simple statistics relating to the algorithm.
 }
 
 func (g *modifiedGenetic) Step() {
@@ -56,7 +56,7 @@ func (g *modifiedGenetic) Step() {
 	g.stats.TimeForGen = time.Since(t)
 }
 
-// newGeneration populates a generation with new members
+// newGeneration populates the generation with new members.
 func (g *modifiedGenetic) newGeneration() {
 	i := 0
 
@@ -95,7 +95,7 @@ func (g *modifiedGenetic) newGeneration() {
 	g.population, g.newPopulation = g.newPopulation, g.population
 }
 
-// calculateFitnesses calculates the fitnesses of the current generation
+// calculateFitnesses calculates the fitnesses of the current generation.
 func (g *modifiedGenetic) calculateFitnesses() {
 	ch := make(chan FitnessData, len(g.population)) // Buffered channel for performance
 
@@ -139,7 +139,7 @@ func (g *modifiedGenetic) calculateFitnesses() {
 
 }
 
-// setBeneficial adds the mutations of population[index] to beneficialMutations
+// setBeneficial adds the mutations of population[index] to beneficialMutations.
 func (g *modifiedGenetic) setBeneficial(index int) {
 	base := g.getBase(index)
 
@@ -170,7 +170,7 @@ func (g *modifiedGenetic) setBeneficial(index int) {
 	}
 }
 
-// combineMutations combines all the beneficial mutations found together for each base
+// combineMutations combines all the beneficial mutations found for each base.
 func (g *modifiedGenetic) combineMutations() {
 	// The members with the combined mutations are at the end
 	for i := len(g.population) - g.cutoff; i < len(g.population); i++ {
@@ -205,7 +205,7 @@ func (g *modifiedGenetic) combineMutations() {
 	}
 }
 
-// updateFitnesses prepares the calculated fitnesses for the next generation
+// updateFitnesses prepares the members with calculated fitnesses for the next generation.
 func (g *modifiedGenetic) updateFitnesses() {
 	// Sort the population by fitness with g.population[0] being the best
 	sort.Sort(g)
@@ -214,7 +214,7 @@ func (g *modifiedGenetic) updateFitnesses() {
 	g.stats.BestFitness = g.fitnesses[0].Fitness
 }
 
-// getBase returns the base of a member given the index of that member
+// getBase returns the base of a member given the index of that member.
 func (g modifiedGenetic) getBase(index int) int {
 	return index % g.cutoff
 }
@@ -227,7 +227,7 @@ func (g modifiedGenetic) Stats() Stats {
 	return g.stats
 }
 
-// Functions for sorting
+// Functions for sorting.
 
 func (g modifiedGenetic) Len() int {
 	return len(g.fitnesses)
@@ -243,7 +243,7 @@ func (g *modifiedGenetic) Swap(i, j int) {
 	g.evaluator.Swap(i, j)
 }
 
-// NewModifiedGenetic returns a new modifiedGenetic algorithm
+// NewModifiedGenetic returns a new modifiedGenetic algorithm.
 func NewModifiedGenetic(newPointGroup func() normgeom.NormPointGroup, size int, cutoff int,
 	newEvaluators func(n int) evaluator.Evaluator, mutator mutation.Method) *modifiedGenetic {
 

@@ -6,7 +6,7 @@ import (
 )
 
 func TestDelaunay_NumPoints(t *testing.T) {
-	delaunay := NewDelaunay(100,100)
+	delaunay := NewDelaunay(100, 100)
 	delaunay.Insert(Point{21, 34})
 	delaunay.Insert(Point{12, 32})
 	delaunay.Insert(Point{12, 32})
@@ -15,7 +15,7 @@ func TestDelaunay_NumPoints(t *testing.T) {
 }
 
 func TestDelaunay_Insert(t *testing.T) {
-	delaunay := NewDelaunay(100,100)
+	delaunay := NewDelaunay(100, 100)
 	delaunay.Insert(Point{21, 34})
 	delaunay.Insert(Point{12, 32})
 	delaunay.Insert(Point{32, 21})

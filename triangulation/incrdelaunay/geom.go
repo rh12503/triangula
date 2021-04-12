@@ -53,7 +53,7 @@ func (p Point) DistSq(b Point) int64 {
 }
 
 func (p Point) Hash() int {
-	return (53 + int(p.X)) * 53 + int(p.Y)
+	return (53+int(p.X))*53 + int(p.Y)
 }
 
 // Circumcircle represents a circumcircle of a Triangle

@@ -1,10 +1,10 @@
 package delaunay
 
 type Triangulation struct {
-	Points     []Point
-	Area int
-	Triangles  []int
-	Halfedges  []int
+	Points       []Point
+	Area         int
+	Triangles    []int
+	Halfedges    []int
 	Triangulator *triangulator
 }
 

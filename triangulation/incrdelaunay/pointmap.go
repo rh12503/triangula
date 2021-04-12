@@ -15,7 +15,7 @@ func newPointMap(size int) pointMap {
 // AddPoint adds a point to the pointMap, accounting for duplicates
 func (pm *pointMap) AddPoint(point Point) uint16 {
 	x, y := uint16(point.X), uint16(point.Y)
-	index := point.Hash()%len(pm.points)
+	index := point.Hash() % len(pm.points)
 
 	// Check if the point already exists
 	for i, p := range pm.points[index] {
@@ -27,8 +27,8 @@ func (pm *pointMap) AddPoint(point Point) uint16 {
 
 	// Point doesn't exist; Create a new entry
 	pm.points[index] = append(pm.points[index], pointEntry{
-		x: x,
-		y: y,
+		x:     x,
+		y:     y,
 		count: 1,
 	})
 	return 1
@@ -38,7 +38,7 @@ func (pm *pointMap) AddPoint(point Point) uint16 {
 // and returning the number of the same point left
 func (pm *pointMap) RemovePoint(point Point) uint16 {
 	x, y := uint16(point.X), uint16(point.Y)
-	index := point.Hash()%len(pm.points)
+	index := point.Hash() % len(pm.points)
 
 	for i, p := range pm.points[index] {
 		// Find the point and decrement its count
@@ -49,8 +49,8 @@ func (pm *pointMap) RemovePoint(point Point) uint16 {
 			if pm.points[index][i].count != 0 {
 				return pm.points[index][i].count
 			} else {
-				pm.points[index][i] = pm.points[index][len(pm.points[index]) - 1]
-				pm.points[index] = pm.points[index][:len(pm.points[index]) - 1]
+				pm.points[index][i] = pm.points[index][len(pm.points[index])-1]
+				pm.points[index] = pm.points[index][:len(pm.points[index])-1]
 				return 0
 			}
 		}
@@ -85,6 +85,6 @@ func (pm *pointMap) Set(other *pointMap) {
 
 // pointEntry is used to keep track of a point and how many copies of the point there are
 type pointEntry struct {
-	x, y uint16
+	x, y  uint16
 	count uint16 // the number of a point the map contains
 }
