@@ -159,6 +159,8 @@ func NewSimple(newPointGroup func() normgeom.NormPointGroup, size int, cutoff in
 
 	algo.fitnesses = make([]FitnessData, len(algo.population))
 
+	algo.mutations = make([][]mutation.Mutation, len(algo.population))
+
 	algo.mutator = mutator
 
 	algo.cutoff = cutoff

@@ -3,10 +3,10 @@ package testutils
 import (
 	"fmt"
 	"github.com/RH12503/Triangula/algorithm"
-	"github.com/RH12503/Triangula/draw"
 	imageData "github.com/RH12503/Triangula/image"
 	"github.com/RH12503/Triangula/render"
 	"github.com/RH12503/Triangula/triangulation"
+	"github.com/RH12503/draw/draw"
 )
 
 var currentAlgorithm algorithm.Algorithm
@@ -28,6 +28,7 @@ func RunWindow(img imageData.Data, algo algorithm.Algorithm, reps, maxSize int) 
 		h = maxSize
 		w = int(float64(w) * ratio)
 	}
+
 	draw.RunWindow("test", w, h, update)
 }
 

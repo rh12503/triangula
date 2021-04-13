@@ -176,6 +176,8 @@ func (g *modifiedGenetic) combineMutations() {
 	for i := len(g.population) - g.cutoff; i < len(g.population); i++ {
 		g.mutations[i] = g.mutations[i][:0]
 		base := g.getBase(i)
+		g.fitnesses[i].I = i
+
 		if g.beneficialMutations[base].Count() > 0 {
 			// If there are any beneficial mutations, set the member to its base and perform all the mutations
 			g.population[i].Set(g.population[base])
@@ -186,8 +188,6 @@ func (g *modifiedGenetic) combineMutations() {
 				g.population[i][m.Index].Y = m.New.Y
 				g.mutations[i] = append(g.mutations[i], m)
 			}
-
-			g.fitnesses[i].I = i
 
 			// Calculate the fitness of the new member
 			e := g.evaluator.Get(i)
@@ -207,7 +207,7 @@ func (g *modifiedGenetic) combineMutations() {
 
 // updateFitnesses prepares the members with calculated fitnesses for the next generation.
 func (g *modifiedGenetic) updateFitnesses() {
-	// Sort the population by fitness with g.population[0] being the best
+	// Sort the population by fitness so g.population[0] has the highest fitness
 	sort.Sort(g)
 
 	g.best.Set(g.population[0])
