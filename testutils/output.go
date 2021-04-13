@@ -23,7 +23,7 @@ func GenerateAlgorithmOutput(outputFile string, algo algorithm.Algorithm, reps i
 		}
 		stats := algo.Stats()
 		fmt.Printf("Gen: %v | Fit: %v | Time: %v\n", stats.Generation, stats.BestFitness, float64(time.Since(ti).Microseconds())/(float64(reps)*1000.))
-		PrintMemUsage()
+		printMemUsage()
 
 		jsonOut, err := json.Marshal(algo.Best())
 		err = ioutil.WriteFile(outputFile, jsonOut, 0644)

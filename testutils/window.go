@@ -13,6 +13,7 @@ var currentAlgorithm algorithm.Algorithm
 var repetitions int
 var image imageData.Data
 
+// RunWindow runs an algorithm and display the results on a window.
 func RunWindow(img imageData.Data, algo algorithm.Algorithm, reps, maxSize int) {
 	image = img
 	currentAlgorithm = algo
@@ -47,7 +48,7 @@ func update(window draw.Window) {
 	fmt.Printf("Gen: %v | Fit: %v | Time: %v\n", stats.Generation, stats.BestFitness, float64(timeSum)/(float64(repetitions)*1000.))
 
 	w, h := image.Size()
-	triangles, _ := triangulation.Triangulate(currentAlgorithm.Best(), w, h)
+	triangles := triangulation.Triangulate(currentAlgorithm.Best(), w, h)
 	triangleData := render.TrianglesOnImage(triangles, image)
 
 	for _, d := range triangleData {

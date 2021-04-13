@@ -10,22 +10,27 @@ import (
 // Not thread safe
 var pcg = pcgr.New(2005, 0)
 
+// Intn returns a random int with a bound.
 func Intn(n int) int {
 	return int(pcg.Bound(uint32(n)))
 }
 
+// Float32 returns a random float32.
 func Float32() float32 {
 	return pcg.Float32()
 }
 
+// Int63 returns a random int64.
 func Int63() int64 {
 	return pcg.Int63()
 }
 
+// Uint32 returns a random uint32.
 func Uint32() uint32 {
 	return pcg.Next()
 }
 
+// Seed resets the random generator with a new seed.
 func Seed(seed int64) {
 	pcg = pcgr.New(seed, 0)
 }

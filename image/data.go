@@ -18,6 +18,7 @@ func (data Data) RGBAt(x, y int) color.RGB {
 	return data.pixels[y][x]
 }
 
+// Size returns the dimensions of the image data
 func (data Data) Size() (int, int) {
 	return data.width, data.height
 }

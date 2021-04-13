@@ -3,7 +3,7 @@ package triangulation
 import (
 	"github.com/RH12503/Triangula/geom"
 	"github.com/RH12503/Triangula/normgeom"
-	"github.com/RH12503/Triangula/triangulation/delaunay"
+	"github.com/fogleman/delaunay"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -13,16 +13,8 @@ func TestArea(t *testing.T) {
 	assert.Equal(t, area, 26)
 }
 
-func TestTriangulatePoints(t *testing.T) {
-	tri, count := TriangulatePoints([]delaunay.Point{{0, 10}, {2, 4}, {4, 5}})
-
-	assert.Equal(t, tri, []geom.Triangle{geom.NewTriangle(4, 5, 2, 4, 0, 10)})
-	assert.Equal(t, count, 7)
-}
-
 func TestTriangulate(t *testing.T) {
-	tri, count := Triangulate(normgeom.NormPointGroup{{0, 1}, {0.2, 0.4}, {0.4, 0.5}}, 10, 10)
+	tri := Triangulate(normgeom.NormPointGroup{{0, 1}, {0.2, 0.4}, {0.4, 0.5}}, 10, 10)
 
 	assert.Equal(t, tri, []geom.Triangle{geom.NewTriangle(4, 5, 2, 4, 0, 10)})
-	assert.Equal(t, count, 7)
 }

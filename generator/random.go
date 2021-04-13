@@ -9,6 +9,7 @@ import (
 type RandomGenerator struct {
 }
 
+// Generate returns a set of randomly distributed points.
 func (r RandomGenerator) Generate(n int) normgeom.NormPointGroup {
 	return randomPoints(n)
 }

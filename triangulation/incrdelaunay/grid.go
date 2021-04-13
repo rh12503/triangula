@@ -60,7 +60,7 @@ func (c *CircumcircleGrid) AddTriangle(t Triangle, index uint16) {
 	}
 }
 
-// RemoveTriangle
+// RemoveTriangle removes a triangle from the grid.
 func (c *CircumcircleGrid) RemoveTriangle(tri Triangle, index uint16) {
 	// Find all the boxes of the grid that the triangle's circumcircle intersects
 	radius := tri.Circumcircle.Radius + 0.001

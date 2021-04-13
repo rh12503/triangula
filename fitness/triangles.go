@@ -38,6 +38,7 @@ type TrianglesImageEvaluator struct {
 	Base          *incrdelaunay.Delaunay // The triangulation which the generator used last generation
 }
 
+// Calculate returns the fitness of a group of points
 func (t *TrianglesImageEvaluator) Calculate(data PointsData) float64 {
 	points := data.Points
 
@@ -195,7 +196,7 @@ func TrianglesImageEvaluators(target image.Data, blockSize, n int) []*TrianglesI
 	return evaluators
 }
 
-// TrianglesImageEvaluators returns a single one of the fitness evaluator
+// NewTrianglesImageEvaluator returns a single one of the fitness evaluator
 func NewTrianglesImageEvaluator(target image.Data, blockSize int) *TrianglesImageEvaluator {
 	w, h := target.Size()
 

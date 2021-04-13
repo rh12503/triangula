@@ -5,7 +5,7 @@ import (
 	"math"
 )
 
-// DDATriangle calls function line for each line a geom.Triangle covers.
+// DDATriangleBlocks calls function line for each line a geom.Triangle covers.
 // It calls function block for each blockSize by blockSize block the triangle covers
 func DDATriangleBlocks(triangle geom.Triangle, blockSize int, line func(x0, x1, y int), block func(x, y int)) {
 	p0 := triangle.Points[0]

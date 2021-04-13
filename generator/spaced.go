@@ -60,6 +60,7 @@ func closestTo(point normgeom.NormPoint, group normgeom.NormPointGroup) (normgeo
 	return closest, dist
 }
 
+// NewSpacedGenerator creates a new generator that runs with a given number of iterations.
 func NewSpacedGenerator(iterations int) spacedGenerator {
 	gen := spacedGenerator{iterations: iterations}
 

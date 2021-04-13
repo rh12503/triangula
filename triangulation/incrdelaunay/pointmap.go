@@ -48,11 +48,11 @@ func (pm *pointMap) RemovePoint(point Point) uint16 {
 			// If there are no copies of the point left, remove its entry
 			if pm.points[index][i].count != 0 {
 				return pm.points[index][i].count
-			} else {
-				pm.points[index][i] = pm.points[index][len(pm.points[index])-1]
-				pm.points[index] = pm.points[index][:len(pm.points[index])-1]
-				return 0
 			}
+
+			pm.points[index][i] = pm.points[index][len(pm.points[index])-1]
+			pm.points[index] = pm.points[index][:len(pm.points[index])-1]
+			return 0
 		}
 	}
 	panic("point doesn't exist")

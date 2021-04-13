@@ -20,6 +20,7 @@ func NewTriangle(a, b, c Point) Triangle {
 	}
 }
 
+// HasVertex returns if the Triangle contains a vertex
 func (t Triangle) HasVertex(p Point) bool {
 	return t.A == p || t.B == p || t.C == p
 }
@@ -45,6 +46,7 @@ type Point struct {
 	X, Y int16
 }
 
+// DistSq returns the distance squared to another point
 func (p Point) DistSq(b Point) int64 {
 	dX := int64(b.X - p.X)
 	dY := int64(b.Y - p.Y)
@@ -52,6 +54,7 @@ func (p Point) DistSq(b Point) int64 {
 	return dX*dX + dY*dY
 }
 
+// Hash returns a hash code for the point
 func (p Point) Hash() int {
 	return (53+int(p.X))*53 + int(p.Y)
 }
@@ -105,11 +108,13 @@ type Edge struct {
 	A, B Point
 }
 
+// Equals returns if the edge is equal to another
 func (e Edge) Equals(b Edge) bool {
 	// A and B are ordered, so it isn't necessary to check the other way around
 	return e.A == b.A && e.B == b.B
 }
 
+// NewEdge returns a new edge with its points sorted
 func NewEdge(a, b Point) Edge {
 	// Order the points in the edge
 	if a.X > b.X {

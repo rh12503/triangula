@@ -8,7 +8,7 @@ import (
 )
 
 // From https://golangcode.com/print-the-current-memory-usage/
-func PrintMemUsage() {
+func printMemUsage() {
 	var m runtime.MemStats
 	runtime.ReadMemStats(&m)
 

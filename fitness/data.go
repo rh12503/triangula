@@ -5,6 +5,7 @@ import (
 	"github.com/RH12503/Triangula/normgeom"
 )
 
+// PointsData stores data regarding a point group, and is used by the fitness function.
 type PointsData struct {
 	Points    normgeom.NormPointGroup
 	Mutations []mutation.Mutation
@@ -19,6 +20,7 @@ type TriFit struct {
 	OtherHash uint32
 }
 
+// Equals returns if the TriFit is equal to another
 func (t TriFit) Equals(other TriFit) bool {
 	return t.aX == other.aX && t.aY == other.aY &&
 		t.bX == other.bX && t.bY == other.bY &&

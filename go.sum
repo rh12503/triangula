@@ -7,6 +7,8 @@ github.com/dgryski/go-pcgr v0.0.0-20190219145045-9a7ede0ca611 h1:ZmWYkcFCJGYQKmG
 github.com/dgryski/go-pcgr v0.0.0-20190219145045-9a7ede0ca611/go.mod h1:ztV/u9hqJRBCT0P03v0Ueol7unBefCKL+paOoIZkR88=
 github.com/enki/fastprng v0.0.0-20190912035746-b46f877a1a50 h1:rEb10MoloN0R4OXOGCLoAKhWnnuE/WK6loew/rWT0AY=
 github.com/enki/fastprng v0.0.0-20190912035746-b46f877a1a50/go.mod h1:fmNBkPdX9WKwCxNL5AdR7/d4eLG+ccEHOmYrgIoBq0c=
+github.com/fogleman/delaunay v0.0.0-20180910191513-63f09b4c883d h1:TEEc0gLspsm9q0dWZZYiH0blV1MhPQnshLqSoANbxMk=
+github.com/fogleman/delaunay v0.0.0-20180910191513-63f09b4c883d/go.mod h1:Twj6uBC/dSqh5vCcgzy/jO/4QWu9lqPTt1v3WEz68z8=
 github.com/gonutz/d3d9 v1.2.1/go.mod h1:q74g3QbR280b+qYauwEV0N9SVadszWPLZ4l/wHiD/AA=
 github.com/gonutz/ds v1.0.0 h1:GBgZTs+Rvimvq9qM8jij3xi+rUZNf0bux95uTFvUkXQ=
 github.com/gonutz/ds v1.0.0/go.mod h1:nqfTfJeXtECo3mp5MH6EHAsruRB1z74bnhYQ6frgXoU=

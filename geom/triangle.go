@@ -7,7 +7,7 @@ type Triangle struct {
 	Points [3]Point
 }
 
-// toNorm returns the normalized equivalent of a Triangle given a width and height
+// ToNorm returns the normalized equivalent of a Triangle given a width and height
 func (t Triangle) ToNorm(w, h int) normgeom.NormTriangle {
 	v := t.Points
 

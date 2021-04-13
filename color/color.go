@@ -8,6 +8,7 @@ type RGB struct {
 	B float64
 }
 
+// NewNormRGB returns a new RGB
 func NewNormRGB(r, g, b float64) RGB {
 	return RGB{r, g, b}
 }
