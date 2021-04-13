@@ -46,6 +46,7 @@ func absInt32(i int32) uint32 {
 	return uint32(i)
 }
 
+// NormFloat64 returns a random float64 with a normal distribution.
 // Adapted from: https://golang.org/src/math/rand/normal.go
 func NormFloat64() float64 {
 	for {

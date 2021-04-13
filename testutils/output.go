@@ -27,6 +27,9 @@ func GenerateAlgorithmOutput(outputFile string, algo algorithm.Algorithm, reps i
 
 		jsonOut, err := json.Marshal(algo.Best())
 		err = ioutil.WriteFile(outputFile, jsonOut, 0644)
+		if err != nil {
+			log.Fatal(err)
+		}
 		writer.WriteString(fmt.Sprintf("%v, %v\n", stats.Generation, stats.BestFitness))
 		writer.Flush()
 		if err != nil {
