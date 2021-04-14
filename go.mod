@@ -3,7 +3,6 @@ module github.com/RH12503/Triangula
 go 1.16
 
 require (
-	github.com/RH12503/draw v0.0.0-20210413113653-87d4424efc10
 	github.com/dgryski/go-pcgr v0.0.0-20190219145045-9a7ede0ca611
 	github.com/enki/fastprng v0.0.0-20190912035746-b46f877a1a50 // indirect
 	github.com/fogleman/delaunay v0.0.0-20180910191513-63f09b4c883d // indirect
