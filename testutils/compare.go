@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-// CompareAlgorithms compares the effectiveness of two algorithms
+// CompareAlgorithms compares the effectiveness of two algorithms.
 func CompareAlgorithms(a, b func() algorithm.Algorithm) {
 	var averagesA []int
 	var averagesB []int

@@ -2,12 +2,12 @@ package geom
 
 import "github.com/RH12503/Triangula/normgeom"
 
-// Triangle represents a triangle with integer coordinates
+// Triangle represents a triangle with integer coordinates.
 type Triangle struct {
 	Points [3]Point
 }
 
-// ToNorm returns the normalized equivalent of a Triangle given a width and height
+// ToNorm returns the normalized equivalent of a Triangle given a width and height.
 func (t Triangle) ToNorm(w, h int) normgeom.NormTriangle {
 	v := t.Points
 
@@ -18,7 +18,7 @@ func (t Triangle) ToNorm(w, h int) normgeom.NormTriangle {
 	}}
 }
 
-// NewTriangle returns a new Triangle with specified coordinates
+// NewTriangle returns a new Triangle with specified vertex coordinates.
 func NewTriangle(x0, y0, x1, y1, x2, y2 int) Triangle {
 	return Triangle{[3]Point{{x0, y0}, {x1, y1}, {x2, y2}}}
 }

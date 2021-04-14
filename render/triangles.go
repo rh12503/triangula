@@ -9,13 +9,14 @@ import (
 	"github.com/RH12503/Triangula/rasterize"
 )
 
-// TriangleData stores a triangle and it's color
+// TriangleData stores a triangle and its color.
 type TriangleData struct {
 	Triangle normgeom.NormTriangle
 	Color    color.RGB
 }
 
-// TrianglesOnImage calculates the optimal color for each triangle so it is the closest to an image
+// TrianglesOnImage calculates the optimal color for a group of triangles so the colors of triangles
+// are closest to an image.
 func TrianglesOnImage(triangles []geom.Triangle, image image.Data) []TriangleData {
 	triangleData := make([]TriangleData, len(triangles))
 

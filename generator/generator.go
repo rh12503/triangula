@@ -3,8 +3,8 @@ package generator
 
 import "github.com/RH12503/Triangula/normgeom"
 
-// A Generator is used to generate a normgeom.NormPointGroup
+// A Generator is used to generate a group of points.
 type Generator interface {
-	// Generate returns a generated normgeom.NormPointGroup with a specified number of generator
+	// Generate generates and returns a point group with a specified number of points.
 	Generate(numPoints int) normgeom.NormPointGroup
 }

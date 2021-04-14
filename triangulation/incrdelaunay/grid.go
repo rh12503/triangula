@@ -5,14 +5,14 @@ import (
 )
 
 // CircumcircleGrid is a data structure that uses spatial partitioning to allowed fast operations
-// involving multiple Triangle's and their Circumcircle's
+// involving multiple Triangle's and their Circumcircle's.
 type CircumcircleGrid struct {
 	triangles            [][][]uint16 // The grid used to store triangles
 	cols, rows           int
 	rowPixels, colPixels float64 // The number of pixels per row and column
 }
 
-// NewCircumcircleGrid returns a new grid with a set amount of columns and rows
+// NewCircumcircleGrid returns a new grid with a specified number of columns and rows.
 func NewCircumcircleGrid(cols, rows, w, h int) CircumcircleGrid {
 	c := CircumcircleGrid{}
 	c.rows = rows
@@ -27,7 +27,7 @@ func NewCircumcircleGrid(cols, rows, w, h int) CircumcircleGrid {
 	return c
 }
 
-// AddTriangle adds a Triangle with an index to the grid
+// AddTriangle adds a Triangle with an index to the grid.
 func (c *CircumcircleGrid) AddTriangle(t Triangle, index uint16) {
 	// Find all the boxes of the grid that the triangle's circumcircle intersects
 	radius := t.Circumcircle.Radius + 0.001
@@ -101,7 +101,7 @@ func (c *CircumcircleGrid) RemoveTriangle(tri Triangle, index uint16) {
 	}
 }
 
-// HasPoint returns if a triangle in the grid has a point
+// HasPoint returns if a triangle in the grid has a point.
 func (c CircumcircleGrid) HasPoint(p Point, triangles []Triangle) bool {
 	// Find which box of the grid the point falls into
 	x := int(math.Floor(float64(p.X) / c.colPixels))
@@ -132,7 +132,7 @@ func (c CircumcircleGrid) HasPoint(p Point, triangles []Triangle) bool {
 	return false
 }
 
-// RemoveCircumcirclesThatContain removes all triangles whose circumcircle's contain a point
+// RemoveCircumcirclesThatContain removes all triangles whose circumcircle contain a point.
 func (c CircumcircleGrid) RemoveCircumcirclesThatContain(p Point, triangles []Triangle, contains func(i uint16)) {
 	// Find which box of the grid the point falls into
 	x := int(math.Floor(float64(p.X) / c.colPixels))
@@ -166,7 +166,7 @@ func (c CircumcircleGrid) RemoveCircumcirclesThatContain(p Point, triangles []Tr
 	}
 }
 
-// RemoveThatHasVertex removes all triangles that have a point
+// RemoveThatHasVertex removes all triangles that have a vertex.
 func (c CircumcircleGrid) RemoveThatHasVertex(p Point, triangles []Triangle, contains func(i uint16)) {
 	// Find which box of the grid the point falls into
 	x := int(math.Floor(float64(p.X) / c.colPixels))
@@ -197,7 +197,7 @@ func (c CircumcircleGrid) RemoveThatHasVertex(p Point, triangles []Triangle, con
 	}
 }
 
-// Set sets a CircumcircleGrid to another CircumcircleGrid
+// Set sets a CircumcircleGrid to another CircumcircleGrid.
 func (c *CircumcircleGrid) Set(other *CircumcircleGrid) {
 	for x, col := range c.triangles {
 		for y := range col {

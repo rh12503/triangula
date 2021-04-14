@@ -5,10 +5,10 @@ import (
 	"math/rand"
 )
 
-// randomMethod is a simple implementation of a Method
+// randomMethod is a simple implementation of a Method.
 type randomMethod struct {
-	rate   float64 // The probability of a point being mutated
-	amount float64 // The amount a point's coordinates are changed
+	rate   float64 // The probability of a point being mutated.
+	amount float64 // The amount a point's coordinates are changed.
 }
 
 func (r randomMethod) Mutate(points normgeom.NormPointGroup, mutated func(mutation Mutation)) {
@@ -27,7 +27,7 @@ func (r randomMethod) Mutate(points normgeom.NormPointGroup, mutated func(mutati
 	}
 }
 
-// NewRandomMethod returns a randomMethod with specified a mutation rate and amount
+// NewRandomMethod returns a randomMethod with specified a mutation rate and amount.
 func NewRandomMethod(rate float64, amount float64) randomMethod {
 	return randomMethod{rate: rate, amount: amount}
 }

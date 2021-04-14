@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-// GenerateProfile creates a CPU profile of the algorithm
+// GenerateProfile creates a CPU profile by running the algorithm.
 func GenerateProfile(outputFile string, algo algorithm.Algorithm, seconds int) {
 	f, err := os.Create(outputFile + ".prof")
 	if err != nil {

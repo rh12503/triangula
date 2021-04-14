@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-// GenerateAlgorithmOutput runs an algorithm.Algorithm and writes the output points to a file
+// GenerateAlgorithmOutput runs an algorithm.Algorithm and writes the best point group to a file.
 func GenerateAlgorithmOutput(outputFile string, algo algorithm.Algorithm, reps int) {
 	dataFile, _ := os.Create(outputFile + "-stats")
 	writer := bufio.NewWriter(dataFile)

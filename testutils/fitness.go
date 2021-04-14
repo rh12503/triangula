@@ -5,7 +5,7 @@ import (
 	"github.com/RH12503/Triangula/algorithm"
 )
 
-// RunAlgorithm runs an algorithm.Algorithm and prints the fitness over generations
+// RunAlgorithm runs an algorithm.Algorithm and prints the fitness after a specified number of repetitions.
 func RunAlgorithm(algo algorithm.Algorithm, reps int) {
 	for {
 		//ti := time.Now()

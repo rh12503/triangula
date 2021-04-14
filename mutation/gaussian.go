@@ -5,11 +5,11 @@ import (
 	"github.com/RH12503/Triangula/random"
 )
 
-// gaussianMethod uses gaussian random number while calculating the magnitude of a mutation.
-// It typically provides better results that a randomMethod
+// gaussianMethod uses a gaussian random number while calculating the magnitude of a mutation.
+// It typically provides better results than a randomMethod.
 type gaussianMethod struct {
-	rate   float32 // The probability of a point being mutated
-	amount float64 // The amount a point's coordinates are changed
+	rate   float32 // The probability of a point being mutated.
+	amount float64 // The amount a point's coordinates are changed.
 }
 
 func (g gaussianMethod) Mutate(points normgeom.NormPointGroup, mutated func(mutation Mutation)) {
@@ -31,7 +31,7 @@ func (g gaussianMethod) Mutate(points normgeom.NormPointGroup, mutated func(muta
 	}
 }
 
-// NewGaussianMethod returns a gaussianMethod with specified a mutation rate and amount
+// NewGaussianMethod returns a gaussianMethod with specified a mutation rate and amount.
 func NewGaussianMethod(rate float64, amount float64) gaussianMethod {
 	return gaussianMethod{rate: float32(rate), amount: amount}
 }

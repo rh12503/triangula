@@ -1,18 +1,18 @@
 package incrdelaunay
 
-// pointMap is an optimized hashset like structure for indicate if and how many copies of a point exists
+// pointMap is an optimized hashset like structure to indicate if and how many copies of a point exists.
 type pointMap struct {
-	points [][]pointEntry // The table
+	points [][]pointEntry // The table.
 }
 
-// newPointMap creates a pointMap with a specified size
+// newPointMap creates a pointMap with a specified size.
 func newPointMap(size int) pointMap {
 	pMap := pointMap{}
 	pMap.points = make([][]pointEntry, size)
 	return pMap
 }
 
-// AddPoint adds a point to the pointMap, accounting for duplicates
+// AddPoint adds a point to the pointMap, accounting for duplicates.
 func (pm *pointMap) AddPoint(point Point) uint16 {
 	x, y := uint16(point.X), uint16(point.Y)
 	index := point.Hash() % len(pm.points)
@@ -35,7 +35,7 @@ func (pm *pointMap) AddPoint(point Point) uint16 {
 }
 
 // RemovePoint removes a point from the pointMap, accounting for duplicates,
-// and returning the number of the same point left
+// and returning the number of the same point left.
 func (pm *pointMap) RemovePoint(point Point) uint16 {
 	x, y := uint16(point.X), uint16(point.Y)
 	index := point.Hash() % len(pm.points)
@@ -58,7 +58,7 @@ func (pm *pointMap) RemovePoint(point Point) uint16 {
 	panic("point doesn't exist")
 }
 
-// NumPoints returns the number of points in the pointMap
+// NumPoints returns the number of points in the pointMap.
 func (pm *pointMap) NumPoints() int {
 	total := 0
 	for _, p := range pm.points {
@@ -69,7 +69,7 @@ func (pm *pointMap) NumPoints() int {
 	return total
 }
 
-// Set sets the pointMap to another pointMap
+// Set sets the pointMap to another pointMap.
 func (pm *pointMap) Set(other *pointMap) {
 	for i := range pm.points {
 		pm.points[i] = pm.points[i][:cap(pm.points[i])]
@@ -83,8 +83,8 @@ func (pm *pointMap) Set(other *pointMap) {
 	}
 }
 
-// pointEntry is used to keep track of a point and how many copies of the point there are
+// pointEntry is used to keep track of a point and how many copies of a point there are.
 type pointEntry struct {
 	x, y  uint16
-	count uint16 // the number of a point the map contains
+	count uint16 // the number of a point the hash table contains.
 }

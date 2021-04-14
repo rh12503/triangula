@@ -6,24 +6,24 @@ import (
 	"image"
 )
 
-// Data represents an image
+// Data store pixel data in an image.
 type Data struct {
 	width  int
 	height int
 	pixels [][]color.RGB
 }
 
-// RGBAt returns a color.RGB given a coordinate
+// RGBAt returns a color.RGB given a coordinate.
 func (data Data) RGBAt(x, y int) color.RGB {
 	return data.pixels[y][x]
 }
 
-// Size returns the dimensions of the image data
+// Size returns the dimensions of the image data.
 func (data Data) Size() (int, int) {
 	return data.width, data.height
 }
 
-// NewData creates a empty Data given a width and height
+// NewData creates a empty Data given a width and height.
 func NewData(w, h int) Data {
 	data := Data{width: w, height: h}
 	data.pixels = make([][]color.RGB, h)
@@ -35,7 +35,7 @@ func NewData(w, h int) Data {
 	return data
 }
 
-// ToData converts a image.Image to a Data
+// ToData converts an image.Image to a Data.
 func ToData(image image.Image) Data {
 	data := NewData(image.Bounds().Max.X, image.Bounds().Max.Y)
 
@@ -53,7 +53,7 @@ func ToData(image image.Image) Data {
 	return data
 }
 
-// convertColor is a utility function for converting uint32 RGB values to RGB values between 0 and 1
+// convertColor is a utility function for converting uint32 RGB values to RGB values between 0 and 1.
 func convertColor(color uint32) float64 {
 	return float64(int(color)/257) / 255
 }

@@ -8,43 +8,44 @@ import (
 	"math"
 )
 
-// The maximum difference for each of the RGB values
-// there can be compared to the target image. Variance is calculated, so
+// The maximum difference for each pixel
+// there can be when compared to the target image. Variance is calculated, so the
 // 255 needs to be squared.
 const maxPixelDifference = 255 * 255 * 3
 
-// TrianglesImageEvaluator is a fitness function for calculating how optimal a point group is when
+// TrianglesImageFitnessFunction is a fitness function that calculates how optimal a point group is when
 // triangulated and "placed" onto a target image.
-// It does this by first calculating the Delaunay triangulation of the generator, then calculating the
-// optimal color of each triangle. Finally, it iterates through the pixels of the triangles and calculates
-// the variance to the target image. (The lower the variance the better)
-type TrianglesImageEvaluator struct {
-	target pixelData // variance data relating to the pixels of the target image
+// It does this by first calculating the Delaunay triangulation of the points, then iterating through the
+// pixels of the triangles and calculating the variance to the target image. (The lower the variance the better)
+type TrianglesImageFitnessFunction struct {
+	target pixelData // pixels data of the target image.
 
 	// Variance data stored in blocks of pixels. The variance of a N*N block can easily be found instead of
-	// needing to iterate through N*N pixels
+	// needing to iterate through N*N pixels.
 	targetN   pixelDataN
-	blockSize int // The size of each block
+	blockSize int // The size of each N*N block.
 
-	maxDifference float64 // The maximum difference of all pixels compared to the target image
+	maxDifference float64 // The maximum difference of all pixels to the target image.
 
-	TriangleCache []TriFit // A cache to store triangles that have already had their variances calculated
+	TriangleCache []TriFit // A cache storing triangles that have already had their variances calculated.
 
 	// The variance calculated for each triangle are put here. This means if the triangles don't change
 	// in the next generation, they won't need to be reevaluated.
 	NextCache []TriFit
 
+	// The triangulation used to create the triangles.
 	Triangulation *incrdelaunay.Delaunay
-	Base          *incrdelaunay.Delaunay // The triangulation which the generator used last generation
+	// The triangulation of the points before being mutated accessed from the
+	// fitness function's base.
+	Base          *incrdelaunay.Delaunay
 }
 
-// Calculate returns the fitness of a group of points
-func (t *TrianglesImageEvaluator) Calculate(data PointsData) float64 {
+// Calculate returns the fitness of a group of points.
+func (t *TrianglesImageFitnessFunction) Calculate(data PointsData) float64 {
 	points := data.Points
 
 	w, h := t.target.Size()
 
-	// Needs to be cleaned up.
 	if t.Triangulation == nil {
 		// If there's no base triangulation, the whole triangulation needs to be recalculated
 		t.Triangulation = incrdelaunay.NewDelaunay(w, h)
@@ -58,7 +59,7 @@ func (t *TrianglesImageEvaluator) Calculate(data PointsData) float64 {
 		// If there is a base triangulation, set this triangulation to the base
 		t.Triangulation.Set(t.Base)
 
-		// And then modify the generator that have been mutated
+		// And then modify the points that have been mutated
 		for _, m := range data.Mutations {
 			t.Triangulation.Remove(incrdelaunay.Point{
 				X: int16(fastRound(m.Old.X * float64(w))),
@@ -97,7 +98,7 @@ func (t *TrianglesImageEvaluator) Calculate(data PointsData) float64 {
 		b := triangle.B
 		c := triangle.C
 
-		// The total area is taken into account when evaluating the fitness
+		// The total area is taken into account when calculating the fitness
 		area += math.Abs(0.5 * ((float64(b.X-a.X) * float64(c.Y-a.Y)) - (float64(c.X-a.X) * float64(b.Y-a.Y))))
 
 		triData := TriFit{
@@ -172,35 +173,35 @@ func (t *TrianglesImageEvaluator) Calculate(data PointsData) float64 {
 	return 1 - (difference / t.maxDifference)
 }
 
-// TrianglesImageEvaluators returns an array of the fitness evaluator
-func TrianglesImageEvaluators(target image.Data, blockSize, n int) []*TrianglesImageEvaluator {
+// TrianglesImageFitnessFunctions returns an array of fitness functions.
+func TrianglesImageFitnessFunctions(target image.Data, blockSize, n int) []*TrianglesImageFitnessFunction {
 	w, h := target.Size()
 
-	evaluators := make([]*TrianglesImageEvaluator, n)
+	functions := make([]*TrianglesImageFitnessFunction, n)
 	pixels := fromImage(target)
 	pixelsN := fromImageN(target, blockSize)
 
 	maxDiff := float64(maxPixelDifference * w * h)
 
 	for i := 0; i < n; i++ {
-		function := TrianglesImageEvaluator{
+		function := TrianglesImageFitnessFunction{
 			target:        pixels,
 			targetN:       pixelsN,
 			blockSize:     blockSize,
 			maxDifference: maxDiff,
 			TriangleCache: make([]TriFit, 2),
 		}
-		evaluators[i] = &function
+		functions[i] = &function
 	}
 
-	return evaluators
+	return functions
 }
 
-// NewTrianglesImageEvaluator returns a single one of the fitness evaluator
-func NewTrianglesImageEvaluator(target image.Data, blockSize int) *TrianglesImageEvaluator {
+// NewTrianglesImageFitnessFunction returns a new fitness function.
+func NewTrianglesImageFitnessFunction(target image.Data, blockSize int) *TrianglesImageFitnessFunction {
 	w, h := target.Size()
 
-	return &TrianglesImageEvaluator{
+	return &TrianglesImageFitnessFunction{
 		target:        fromImage(target),
 		targetN:       fromImageN(target, blockSize),
 		blockSize:     blockSize,

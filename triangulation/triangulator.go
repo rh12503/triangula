@@ -41,8 +41,8 @@ func Triangulate(points normgeom.NormPointGroup, w, h int) []geom.Triangle {
 	return newTriangles
 }
 
-// Area returns the area of a convex polygon
-// Adapted from: https://www.geeksforgeeks.org/area-of-a-polygon-with-given-n-ordered-vertices/
+// Area returns the area of a convex polygon.
+// Adapted from: https://www.geeksforgeeks.org/area-of-a-polygon-with-given-n-ordered-vertices/.
 func Area(polygon []delaunay.Point) int {
 	area := 0.
 

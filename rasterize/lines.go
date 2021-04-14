@@ -2,8 +2,8 @@ package rasterize
 
 import "github.com/RH12503/Triangula/geom"
 
-// DDATriangleLines calls function line for each horizontal line a geom.Triangle covers.
-// The Digital Differential Analyzer line rasterization algorithm is used.
+// DDATriangleLines calls function line for each horizontal line a geom.Triangle covers
+// using a digital differential analyzing algorithm.
 func DDATriangleLines(triangle geom.Triangle, line func(x0, x1, y int)) {
 	p0 := triangle.Points[0]
 	p1 := triangle.Points[1]
@@ -54,7 +54,7 @@ func DDATriangleLines(triangle geom.Triangle, line func(x0, x1, y int)) {
 }
 
 // normalTriangleLines rasterizes a triangle with different y values.
-// The y values must be sorted where y0 has the lowest value
+// The y values must be sorted where y0 has the lowest value.
 func normalTriangleLines(x0, y0, x1, y1, x2, y2 int, line func(x0, x1, y int)) {
 
 	// Calculate the slopes of the first two lines
@@ -99,17 +99,17 @@ func normalTriangleLines(x0, y0, x1, y1, x2, y2 int, line func(x0, x1, y int)) {
 	}
 }
 
-// bottomTriangleLines rasterizes a triangle with a flat bottom with coordinate y
+// bottomTriangleLines rasterizes a triangle with a flat bottom of coordinate y.
 func bottomTriangleLines(x0, x1, y, x2, y2 int, line func(x0, x1, y int)) {
 	flatTriangleLines(x2, y2, x0, y, x1-x2, x1, line)
 }
 
-// topTriangleLines rasterizes a triangle with a flat top with coordinate y
+// topTriangleLines rasterizes a triangle with a flat top of coordinate y.
 func topTriangleLines(x0, x1, y, x2, y2 int, line func(x0, x1, y int)) {
 	flatTriangleLines(x0, y, x2, y2, x2-x1, x2, line)
 }
 
-// flatTriangleLines rasterizes a triangle with a flat top or bottom
+// flatTriangleLines rasterizes a triangle with a flat top or bottom.
 func flatTriangleLines(x0, y, x2, y2, i2, p int, line func(x0, x1, y int)) {
 	m0 := float64(x2-x0) / float64(y2-y)
 	m1 := float64(i2) / float64(y2-y)
@@ -117,7 +117,7 @@ func flatTriangleLines(x0, y, x2, y2, i2, p int, line func(x0, x1, y int)) {
 	fillTriangleLines(y2, y, float64(x2), float64(p), m0, m1, line)
 }
 
-// fillTriangleLines rasterizes a flat triangle given the linear equations of both lines
+// fillTriangleLines rasterizes a flat triangle given the linear equations of its two lines.
 func fillTriangleLines(minY, maxY int, lX0, lX1, m0, m1 float64, line func(x0, x1, y int)) {
 	for i := minY; i < maxY; i++ {
 		nX0 := m0*float64(i-minY) + lX0

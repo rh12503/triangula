@@ -5,7 +5,7 @@ import (
 	"math/rand"
 )
 
-// A RandomGenerator generates a normgeom.NormPointGroup of random normalized generator.
+// A RandomGenerator generates a point group filled with random points.
 type RandomGenerator struct {
 }
 
@@ -14,7 +14,7 @@ func (r RandomGenerator) Generate(n int) normgeom.NormPointGroup {
 	return randomPoints(n)
 }
 
-// randomPoints returns a normgeom.NormPointGroup with n number of random generator.
+// randomPoints returns a point group with a specified number of points.
 func randomPoints(n int) normgeom.NormPointGroup {
 	points := normgeom.NormPointGroup{}
 

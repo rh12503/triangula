@@ -2,7 +2,7 @@ package incrdelaunay
 
 import "math"
 
-// Calculates if point d is in the circumcircle of triangle abc
+// inCircle returns if point d is in the circumcircle of triangle abc.
 func inCircle(aX, aY, bX, bY, cX, cY, dX, dY int64) int64 {
 	if orientation(aX, aY, bX, bY, cX, cY) < 0 {
 		aX, bX = bX, aX
@@ -22,13 +22,13 @@ func inCircle(aX, aY, bX, bY, cX, cY, dX, dY int64) int64 {
 		(a31*a31+a32*a32)*(a11*a22-a21*a12)
 }
 
-// Returns a positive integer if points abc are clockwise
+// orientation returns a positive integer if points abc are clockwise.
 func orientation(aX, aY, bX, bY, cX, cY int64) int64 {
 	return (aX-cX)*(bY-cY) - (bX-cX)*(aY-cY)
 }
 
-// Calculates the score of a Devillers' ear.
-// See https://hal.inria.fr/inria-00167201/document
+// calculateScore calculates the score of a Devillers' ear.
+// See https://hal.inria.fr/inria-00167201/document.
 func calculateScore(a, b, c, d Point) float64 {
 	orientation := orientation(int64(a.X), int64(a.Y), int64(b.X), int64(b.Y), int64(c.X), int64(c.Y))
 

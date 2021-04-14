@@ -7,28 +7,28 @@ import (
 	"sort"
 )
 
-// Delaunay represents a Delaunay triangulation. Many "hacks" have been used for performance purposes
+// Delaunay represents a Delaunay triangulation.
 type Delaunay struct {
 	triangles []Triangle
 
-	grid CircumcircleGrid // For fast detection of circumcircles containing a point
+	grid CircumcircleGrid // For fast detection of circumcircles containing a point.
 
 	pointMap pointMap
 
-	freeTriangles []uint16 // A list of free indexes in the triangles slice
+	freeTriangles []uint16 // A list of free indexes in the triangles slice.
 
-	superTriangle Triangle // A triangle that contains all points added
+	superTriangle Triangle // A triangle that contains all points added.
 
-	edges []Edge // For performance purposes
+	edges []Edge // For performance purposes.
 
-	hull []Point // For performance purposes
+	hull []Point // For performance purposes.
 
-	ears []ear // For performance purposes
+	ears []ear // For performance purposes.
 
-	numPoints int // The number of points in the triangulation (including duplicate points)
+	numPoints int // The number of points in the triangulation (including duplicate points).
 }
 
-// NewDelaunay returns a new Delaunay triangulation
+// NewDelaunay returns a new Delaunay triangulation.
 func NewDelaunay(w, h int) *Delaunay {
 	delaunay := Delaunay{}
 
@@ -45,7 +45,7 @@ func NewDelaunay(w, h int) *Delaunay {
 }
 
 // Insert adds a point to the Delaunay triangulation using the Bowyer-Watson algorithm.
-// Duplicate points are kept track of
+// Duplicate points are kept track of.
 func (d *Delaunay) Insert(p Point) bool {
 	d.pointMap.AddPoint(p)
 
@@ -79,7 +79,7 @@ func (d *Delaunay) Insert(p Point) bool {
 }
 
 // Remove removes a point from the Delaunay Triangulation.
-// If there are duplicates of the point only one of the points is removed
+// If there are duplicates of the point only one of the duplicates is removed.
 func (d *Delaunay) Remove(p Point) {
 	d.numPoints--
 	if d.pointMap.RemovePoint(p) != 0 {
@@ -201,7 +201,7 @@ func (d *Delaunay) Remove(p Point) {
 	d.addTriangle(NewTriangle(d.ears[0].a, d.ears[0].b, d.ears[0].c))
 }
 
-// addEdge adds an edge to the edges if edge e is unique
+// addEdge adds an edge to the edges if edge e is unique.
 func (d *Delaunay) addEdge(e Edge) {
 	found := false
 	for i, edge := range d.edges {
@@ -217,17 +217,17 @@ func (d *Delaunay) addEdge(e Edge) {
 	}
 }
 
-// resetEdges empties the edges slice
+// resetEdges empties edges.
 func (d *Delaunay) resetEdges() {
 	d.edges = d.edges[:0]
 }
 
-// addToHull adds a point to hull
+// addToHull adds a point to hull.
 func (d *Delaunay) addToHull(p Point) {
 	d.hull = append(d.hull, p)
 }
 
-// addTriangle adds a triangle to triangulation
+// addTriangle adds a triangle to triangulation.
 func (d *Delaunay) addTriangle(t Triangle) {
 	// First check if there are any free indexes available
 	if len(d.freeTriangles) > 0 {
@@ -245,13 +245,13 @@ func (d *Delaunay) addTriangle(t Triangle) {
 }
 
 // markFreeTriangle marks a triangle in the triangles slice as no longer being needed,
-// essentially removing the triangle from the triangulation
+// essentially removing the triangle from the triangulation.
 func (d *Delaunay) markFreeTriangle(i uint16) {
 	d.triangles[i].A.X = -1 // Marks the triangle as invalid
 	d.freeTriangles = append(d.freeTriangles, i)
 }
 
-// IterTriangles iterates through all the triangles in the triangulation, calling function triangle for each one
+// IterTriangles iterates through all the triangles in the triangulation, calling function triangle for each one.
 func (d Delaunay) IterTriangles(triangle func(t Triangle)) {
 	for _, t := range d.triangles {
 		if t.A.X == -1 {
@@ -267,12 +267,12 @@ func (d Delaunay) IterTriangles(triangle func(t Triangle)) {
 	}
 }
 
-// NumPoints returns the number of points in the triangulation, including duplicate points
+// NumPoints returns the number of points in the triangulation, including duplicate points.
 func (d Delaunay) NumPoints() int {
 	return d.numPoints
 }
 
-// Set sets the triangulation to another triangulation
+// Set sets the triangulation to another triangulation.
 func (d *Delaunay) Set(other *Delaunay) {
 	d.triangles = d.triangles[:cap(d.triangles)]
 
@@ -299,12 +299,12 @@ func (d *Delaunay) Set(other *Delaunay) {
 	d.pointMap.Set(&other.pointMap)
 }
 
-// HasPoint returns whether the triangulation contains point p
+// HasPoint returns whether the triangulation contains point p.
 func (d Delaunay) HasPoint(p Point) bool {
 	return d.grid.HasPoint(p, d.triangles)
 }
 
-// GetClosestTo returns the closest point in the triangulation to point p
+// GetClosestTo returns the closest point in the triangulation to point p.
 func (d Delaunay) GetClosestTo(p Point) Point {
 	var closest Point
 	closestDist := int64(math.MaxInt64)

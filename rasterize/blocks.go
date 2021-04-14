@@ -5,8 +5,8 @@ import (
 	"math"
 )
 
-// DDATriangleBlocks calls function line for each line a geom.Triangle covers.
-// It calls function block for each blockSize by blockSize block the triangle covers
+// DDATriangleBlocks calls function line for each line a triangle covers, and
+// calls function block for each block the triangle covers.
 func DDATriangleBlocks(triangle geom.Triangle, blockSize int, line func(x0, x1, y int), block func(x, y int)) {
 	p0 := triangle.Points[0]
 	p1 := triangle.Points[1]
@@ -36,7 +36,7 @@ func DDATriangleBlocks(triangle geom.Triangle, blockSize int, line func(x0, x1, 
 	normalTriangleBlocks(x0, y0, x1, y1, x2, y2, blockSize, line, block)
 }
 
-// normalTriangleBlocks rasterizes the lines of a triangle, while trying to rasterize in blocks when possible
+// normalTriangleBlocks rasterizes the lines of a triangle, while trying to rasterize in blocks when possible.
 func normalTriangleBlocks(x0, y0, x1, y1, x2, y2 int, blockSize int, line func(x0, x1, y int), block func(x, y int)) {
 
 	// Calculate the slopes of the first two lines
