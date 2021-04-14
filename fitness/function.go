@@ -2,7 +2,7 @@
 // an implementation of a fitness function that is used in the algorithm.
 package fitness
 
-// A Function returns a fitness given a point group
+// A Function represents a fitness function to evaluate a point group.
 type Function interface {
 	// Calculate evaluates a point group and returns a fitness.
 	Calculate(data PointsData) float64
