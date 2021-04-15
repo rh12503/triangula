@@ -15,7 +15,7 @@
 
 ### CLI
 
-## Explanation of parameters
+## Parameters
 
-## Example usage
+## Examples
 
