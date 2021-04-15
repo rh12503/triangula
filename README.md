@@ -18,9 +18,12 @@
 
 ## Parameters
 
-| Name  | Flag |  Function |
-| ------------- | ------------- | -- |
-|  Example |  `-f, -flag`  | Todo   |
-| Todo  |  Todo  |  Todo |
+| Name  | Flag | Default |  Function |
+| ------------- | ---- | ------------- | -- |
+|  Example |  `-f, -flag`  | | Todo   |
+| Todo  |  Todo  |  | Todo |
 
 ## Examples
+
+
+## Usage
