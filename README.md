@@ -1,5 +1,4 @@
 <p align="center">
-  <img src="https://files.catbox.moe/jhi170.svg" width="50%">
   <img src="https://files.catbox.moe/jhi170.svg" width="30%">
 </p>
 
