@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://files.catbox.moe/jhi170.svg" width="30%">
+  <img src="https://files.catbox.moe/jhi170.svg" width="250px">
 </p>
 
 <p align="center">An iterative algorithm to generate high quality triangulated images.</p>
