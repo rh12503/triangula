@@ -1,5 +1,5 @@
-// Package testutils provides utilities for testing, benchmarking, and visualizing different algorithms.
-package testutils
+// Package utils provides utilities for testing, benchmarking, and visualizing different algorithms.
+package utils
 
 import (
 	"fmt"

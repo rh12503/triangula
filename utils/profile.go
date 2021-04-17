@@ -1,4 +1,4 @@
-package testutils
+package utils
 
 import (
 	"github.com/RH12503/Triangula/algorithm"
