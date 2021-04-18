@@ -20,6 +20,8 @@ Install the [GUI](https://github.com/RH12503/Triangula-GUI) from the [releases p
 
 <img src="/assets/triangula.gif" width="500">
 
+If the app isn't running on Linux, go to the Permissions tab in the executable's properties and tick `Allow executing file as program`. 
+
 ### CLI
 Install the [CLI](https://github.com/RH12503/Triangula-CLI) by running: 
 ```
@@ -37,7 +39,7 @@ and render a SVG:
 ```
 triangula render -in <path to outputted JSON> -out <path to output SVG>
 ```
-Full more details see [this page](https://github.com/RH12503/Triangula-CLI/blob/main/README.md). 
+For more details see [this page](https://github.com/RH12503/Triangula-CLI/blob/main/README.md). 
 
 ## Options
 For almost all cases, only changing the number of points and leaving all other options with their default values will generate an optimal result. 
@@ -54,7 +56,7 @@ For almost all cases, only changing the number of points and leaving all other o
 | Threads | `--threads, -t` | 0 | The number of threads to use or 0 to use all cores | 
 | Repetitions | `--reps, -r`| 500 | The number of generations before saving to the output file (CLI only) | 
 
-## Example output
+## Examples of output
 <img src="/assets/output/grad.png" height="400"/>
 <img src="/assets/output/plane.png" height="400"/> 
 <img src="/assets/output/sf.png" height="400"/>
