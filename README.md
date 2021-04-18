@@ -11,20 +11,33 @@
 </p>
 
 ## Introduction
-Triangula uses a modified genetic algorithm to triangulate images. It works best with images smaller than 2000px and with less than 3000 points, typically producing an optimal result within a couple of minutes. To better understand the algorithm, considering reading [this page on the wiki](https://github.com/RH12503/Triangula/wiki/Explanation-of-the-algorithm). 
+Triangula uses a modified genetic algorithm to triangulate images. It works best with images smaller than 2000px and with less than 3000 points, typically producing an optimal result within a couple of minutes. For a full explanation of the algorithm, see [this page in the wiki](https://github.com/RH12503/Triangula/wiki/Explanation-of-the-algorithm). 
 
 ## Install
 
 ### GUI
-Install the [GUI](https://github.com/RH12503/Triangula-GUI) from the releases page. 
+Install the [GUI](https://github.com/RH12503/Triangula-GUI) from the [releases page](https://github.com/RH12503/Triangula/releases). 
 
 <img src="/assets/triangula.gif" width="500">
 
 ### CLI
-Install the [CLI](https://github.com/RH12503/Triangula-CLI) using: 
+Install the [CLI](https://github.com/RH12503/Triangula-CLI) by running: 
 ```
 go get github.com/RH12503/Triangula-CLI/triangula
 ```
+
+Your `PATH` variable also needs to include your `go/bin` directory, which is `~/go/bin` on macOS, `$GOPATH/bin` on Linux, and `c:\Go\bin` on Windows. 
+
+Then run it using the command: 
+```
+triangula -img <path to image> -out <path to output JSON>
+```
+
+and render a SVG:
+```
+triangula render -in <path to outputted JSON> -out <path to output SVG>
+```
+Full more details see [this page](https://github.com/RH12503/Triangula-CLI/blob/main/README.md). 
 
 ## Options
 For almost all cases, only changing the number of points and leaving all other options with their default values will generate an optimal result. 
@@ -56,7 +69,7 @@ esimov/triangle seems to be a similar project to Triangula that is also written 
 | <img src="https://github.com/esimov/triangle/blob/master/output/sample_3.png" height="250"/> | <img src="/assets/output/result2.png" height="250"/>  |
 
 ## API 
-A simple example to use the API would be: 
+Simple example: 
 ```Go
 func main() {
       // Open and decode a PNG/JPEG
