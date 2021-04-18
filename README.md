@@ -11,7 +11,7 @@
 </p>
 
 ## Introduction
-Triangula uses a modified genetic algorithm to triangulate images. It works best with images smaller than 2000x2000px and with less than 2000 points, typically producing an optimal result within a couple minutes. To better understand the algorithm, considering reading [this page on the wiki](https://github.com/RH12503/Triangula/wiki/Explanation-of-the-algorithm). 
+Triangula uses a modified genetic algorithm to triangulate images. It works best with images smaller than 2000px and with less than 3000 points, typically producing an optimal result within a couple of minutes. To better understand the algorithm, considering reading [this page on the wiki](https://github.com/RH12503/Triangula/wiki/Explanation-of-the-algorithm). 
 
 ## Install
 
