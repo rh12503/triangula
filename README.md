@@ -23,7 +23,7 @@ Install the [GUI](https://github.com/RH12503/Triangula-GUI) from the releases pa
 ### CLI
 Install the [CLI](https://github.com/RH12503/Triangula-CLI) using: 
 ```
-go get github.com/RH12503/Triangula-CLI
+go get github.com/RH12503/Triangula-CLI/triangula
 ```
 
 ## Options
