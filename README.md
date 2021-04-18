@@ -17,7 +17,7 @@ Triangula uses a modified genetic algorithm to triangulate images. It works best
 
 ### GUI
 Install the [GUI](https://github.com/RH12503/Triangula-GUI) from the [releases page](https://github.com/RH12503/Triangula/releases). 
-The GUI uses [Wails](wails.app) for its frontend. 
+The GUI uses [Wails](https://wails.app/) for its frontend. 
 
 <img src="/assets/triangula.gif" width="500">
 
