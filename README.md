@@ -13,8 +13,15 @@
 ## Install
 
 ### GUI
+Installl the [GUI](https://github.com/RH12503/Triangula-GUI) from the releases. 
+
+<img src="https://s4.gifyu.com/images/triangula.gif" width="500">
 
 ### CLI
+Install the [CLI](https://github.com/RH12503/Triangula-CLI) using: 
+```
+go get github.com/RH12503/Triangula-CLI
+```
 
 ## Parameters
 
@@ -26,4 +33,49 @@
 ## Examples
 
 
-## Usage
+## API 
+A simple example would be: 
+```Go
+func main() {
+	// Open and decode a PNG/JPEG
+	file, err := os.Open("image.png")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	image, _, err := image.Decode(file)
+
+	file.Close()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	img := imageData.ToData(image)
+
+
+	pointFactory := func() normgeom.NormPointGroup {
+		return (generator.RandomGenerator{}).Generate(200) // 200 points
+	}
+
+	evaluatorFactory := func(n int) evaluator.Evaluator {
+		// 22 for the cache size and 5 for the block size
+		return evaluator.NewParallel(img, 22, 5, n)
+	}
+
+	var mutator mutation.Method
+
+	// 1% mutation rate and 30% variation
+	mutator = mutation.NewGaussianMethod(0.01, 0.3)
+
+	// 400 population size and 5 cutoff
+	algo := algorithm.NewSimple(pointFactory, 400, 5, evaluatorFactory, mutator)
+
+	// Run the algorithm
+	for {
+		algo.Step()
+		fmt.Println(algo.Stats().BestFitness)
+	}
+}
+```
