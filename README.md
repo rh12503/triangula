@@ -42,7 +42,18 @@ For almost all cases, only changing the number of points and leaving all other o
 | Repetitions | `--reps, -r`| 500 | The number of generations before saving to the output file (CLI only) | 
 
 ## Example output
+<img src="/assets/output/grad.png" height="400"/>
+<img src="/assets/output/plane.png" height="400"/> 
+<img src="/assets/output/sf.png" height="400"/>
+<img src="/assets/output/thompson.png" height="400"/>
+<img src="/assets/output/astro.png" height="400"/>
 
+### Comparison to [esimov/triangle](https://github.com/esimov/triangle)
+I've noticed esimov/triangle is a similar project to Triangula that is also written in Go. However, the two appear to generate very different styles. One big advantage of triangle is that it generates an image almost instantaneously, while Triangula needs to run many iterations. 
+| esimov/triangle | Triangula |
+| :---: | :---: |
+| <img src="https://github.com/esimov/triangle/blob/master/output/sample_11.png" height="250"/> | <img src="/assets/output/result.png" height="250"/> |
+| <img src="https://github.com/esimov/triangle/blob/master/output/sample_3.png" height="250"/> | <img src="/assets/output/result2.png" height="250"/>  |
 
 ## API 
 A simple example to use the API would be: 
