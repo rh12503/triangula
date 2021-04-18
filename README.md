@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://files.catbox.moe/jhi170.svg" width="250px">
+  <img src="/assets/logo.svg" width="250px">
 </p>
 
 <p align="center">An iterative algorithm to generate high quality triangulated images.</p>
@@ -18,7 +18,7 @@ Triangula uses a modified genetic algorithm to triangulate images. It works best
 ### GUI
 Install the [GUI](https://github.com/RH12503/Triangula-GUI) from the releases page. 
 
-<img src="https://s4.gifyu.com/images/triangula.gif" width="500">
+<img src="/assets/triangula.gif" width="500">
 
 ### CLI
 Install the [CLI](https://github.com/RH12503/Triangula-CLI) using: 
