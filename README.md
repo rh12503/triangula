@@ -26,7 +26,7 @@ If the app isn't running on Linux, go to the Permissions tab in the executable's
 ### CLI
 Install the [CLI](https://github.com/RH12503/Triangula-CLI) by running: 
 ```
-go get github.com/RH12503/Triangula-CLI/triangula
+go get -u github.com/RH12503/Triangula-CLI/triangula
 ```
 
 Your `PATH` variable also needs to include your `go/bin` directory, which is `~/go/bin` on macOS, `$GOPATH/bin` on Linux, and `c:\Go\bin` on Windows. 
