@@ -33,7 +33,7 @@ Your `PATH` variable also needs to include your `go/bin` directory, which is `~/
 
 Then run it using the command: 
 ```
-triangula -img <path to image> -out <path to output JSON>
+triangula run -img <path to image> -out <path to output JSON>
 ```
 
 and render a SVG:
