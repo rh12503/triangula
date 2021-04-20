@@ -36,7 +36,7 @@ Then run it using the command:
 triangula run -img <path to image> -out <path to output JSON>
 ```
 
-and when your happy with its fitness, render a SVG:
+and when you're happy with its fitness, render a SVG:
 ```
 triangula render -in <path to outputted JSON> -out <path to output SVG>
 ```
@@ -66,6 +66,8 @@ For almost all cases, only changing the number of points and leaving all other o
 
 ### Comparison to [esimov/triangle](https://github.com/esimov/triangle)
 esimov/triangle seems to be a similar project to Triangula that is also written in Go. However, the two appear to generate very different styles. One big advantage of triangle is that it generates an image almost instantaneously, while Triangula needs to run many iterations. 
+
+esimov/triangle results were taken from their [Github repo](https://github.com/esimov/triangle), and Triangula's results were generated over 1-2 minutes. 
 | esimov/triangle | Triangula |
 | :---: | :---: |
 | <img src="https://github.com/esimov/triangle/blob/master/output/sample_11.png" height="250"/> | <img src="/assets/output/result.png" height="250"/> |
