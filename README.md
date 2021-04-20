@@ -8,7 +8,7 @@
 <a href="https://pkg.go.dev/github.com/RH12503/Triangula"><img src="https://pkg.go.dev/badge/github.com/RH12503/Triangula.svg" alt="Go Reference"></a>
 <a href="https://goreportcard.com/report/github.com/RH12503/Triangula"><img src="https://goreportcard.com/badge/github.com/RH12503/Triangula" alt="Go Report Card"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
-<a href="https://twitter.com/intent/tweet?text=An%20iterative%20algorithm%20to%20triangulate%20images.&url=github.com/RH12503/triangula&hashtags=golang,geneticalgorithm,generativeart"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social" alt="Tweet"></a>
+<a href="https://twitter.com/intent/tweet?text=An%20iterative%20algorithm%20to%20triangulate%20images.&url=https://github.com/RH12503/triangula&hashtags=golang,geneticalgorithm,generativeart"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social" alt="Tweet"></a>
 </p>
 
 ## Introduction
