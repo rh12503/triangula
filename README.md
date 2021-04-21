@@ -11,8 +11,9 @@
 <a href="https://twitter.com/intent/tweet?text=An%20iterative%20algorithm%20to%20triangulate%20images.&url=https://github.com/RH12503/triangula&hashtags=golang,geneticalgorithm,generativeart"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social" alt="Tweet"></a>
 </p>
 
-## Introduction
 Triangula uses a modified genetic algorithm to triangulate images. It works best with images smaller than 3000px and with fewer than 3000 points, typically producing an optimal result within a couple of minutes. For a full explanation of the algorithm, see [this page in the wiki](https://github.com/RH12503/Triangula/wiki/Explanation-of-the-algorithm). 
+
+You can try the algorithm out in your browser [here](https://rh12503.github.io/triangula/), but the desktop app will typically be 20-50x faster. 
 
 ## Install
 
