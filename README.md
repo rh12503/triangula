@@ -39,7 +39,7 @@ triangula run -img <path to image> -out <path to output JSON>
 
 and when you're happy with its fitness, render a SVG:
 ```
-triangula render -in <path to outputted JSON> -out <path to output SVG>
+triangula render -in <path to outputted JSON> -img <path to image> -out <path to output SVG> 
 ```
 For more detailed instructions, including rendering PNGs with effects see [this page](https://github.com/RH12503/Triangula-CLI/blob/main/README.md). 
 
