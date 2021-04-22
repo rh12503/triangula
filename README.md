@@ -81,47 +81,49 @@ A lot of people have commented about Triangula's similarities to these other alg
 ## API 
 Simple example: 
 ```Go
+import imageData "github.com/RH12503/Triangula/image"
+
 func main() {
-      // Open and decode a PNG/JPEG
-      file, err := os.Open("image.png")
+    // Open and decode a PNG/JPEG
+    file, err := os.Open("image.png")
 
-      if err != nil {
-            log.Fatal(err)
-      }
+    if err != nil {
+          log.Fatal(err)
+    }
 
-      image, _, err := image.Decode(file)
+    image, _, err := image.Decode(file)
 
-      file.Close()
+    file.Close()
 
-      if err != nil {
-            log.Fatal(err)
-      }
+    if err != nil {
+          log.Fatal(err)
+    }
 
-      img := imageData.ToData(image)
+    img := imageData.ToData(image)
 
 
-      pointFactory := func() normgeom.NormPointGroup {
-            return (generator.RandomGenerator{}).Generate(200) // 200 points
-      }
+    pointFactory := func() normgeom.NormPointGroup {
+          return (generator.RandomGenerator{}).Generate(200) // 200 points
+    }
 
-      evaluatorFactory := func(n int) evaluator.Evaluator {
-            // 22 for the cache size and 5 for the block size
-            return evaluator.NewParallel(img, 22, 5, n)
-      }
+    evaluatorFactory := func(n int) evaluator.Evaluator {
+          // 22 for the cache size and 5 for the block size
+          return evaluator.NewParallel(img, 22, 5, n)
+    }
 
-      var mutator mutation.Method
+    var mutator mutation.Method
 
-      // 1% mutation rate and 30% variation
-      mutator = mutation.NewGaussianMethod(0.01, 0.3)
+    // 1% mutation rate and 30% variation
+    mutator = mutation.NewGaussianMethod(0.01, 0.3)
 
-      // 400 population size and 5 cutoff
-      algo := algorithm.NewSimple(pointFactory, 400, 5, evaluatorFactory, mutator)
+    // 400 population size and 5 cutoff
+    algo := algorithm.NewSimple(pointFactory, 400, 5, evaluatorFactory, mutator)
 
-      // Run the algorithm
-      for {
-            algo.Step()
-            fmt.Println(algo.Stats().BestFitness)
-      }
+    // Run the algorithm
+    for {
+          algo.Step()
+          fmt.Println(algo.Stats().BestFitness)
+    }
 }
 
 ```
