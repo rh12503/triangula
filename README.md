@@ -75,6 +75,9 @@ esimov/triangle results were taken from their [Github repo](https://github.com/e
 | <img src="https://github.com/esimov/triangle/blob/master/output/sample_11.png" height="250"/> | <img src="/assets/output/result.png" height="250"/> |
 | <img src="https://github.com/esimov/triangle/blob/master/output/sample_3.png" height="250"/> | <img src="/assets/output/result2.png" height="250"/>  |
 
+#### Difference from [fogleman/primitive](https://github.com/fogleman/primitive)
+A lot of people have commented about Triangula's similarities to Primitive Pictures. While both algorithms use genetic algorithms, the main difference is that Primitive's shapes can overlap while Triangula generates a triangulation. 
+
 ## API 
 Simple example: 
 ```Go
