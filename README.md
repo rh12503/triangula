@@ -64,7 +64,7 @@ For almost all cases, only changing the number of points and leaving all other o
 <img src="/assets/output/plane.png" height="400"/> 
 <img src="/assets/output/sf.png" height="400"/>
 <img src="/assets/output/thompson.png" height="400"/>
-Image licensed under CC-BY-NC-SA. Original photograph creator: Peter Adams. [Source](https://www.peteradamsphoto.com/ken-thompson-2/)
+Image licensed under CC-BY-NC-SA. Original photograph creator: Peter Adams. Source: https://www.peteradamsphoto.com/ken-thompson-2/. 
 <img src="/assets/output/astro.png" height="400"/>
 
 ### Comparison to [esimov/triangle](https://github.com/esimov/triangle)
