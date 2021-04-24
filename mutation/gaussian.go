@@ -17,8 +17,8 @@ func (g gaussianMethod) Mutate(points normgeom.NormPointGroup, mutated func(muta
 		if random.Float32() < g.rate {
 			old := points[i]
 
-			points[i].X += (random.NormFloat64() - 0.5) * g.amount
-			points[i].Y += (random.NormFloat64() - 0.5) * g.amount
+			points[i].X += random.NormFloat64() * g.amount * 0.5
+			points[i].Y += random.NormFloat64() * g.amount * 0.5
 
 			points[i].Constrain()
 
