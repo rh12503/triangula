@@ -128,6 +128,7 @@ func main() {
 ```
 ## Contribute
 Any contributions are welcome. Currently help is needed with:
+* Support for exporting effects to SVGs
 * Supporting more image types for the CLI and GUI. (eg. .tiff, .webp, .heic)
 * Allowing drag and drop of images from the web for the GUI. 
 * More effects. 
