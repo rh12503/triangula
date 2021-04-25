@@ -135,5 +135,5 @@ Any contributions are welcome. Currently help is needed with:
 * Any optimizations. 
 
 Thank you to these contributors for helping to improve Triangula: 
-- @bstncartwright
-- @2BoysAndHats
+- [@bstncartwright](https://github.com/bstncartwright)
+- [@2BoysAndHats](https://github.com/2BoysAndHats)
