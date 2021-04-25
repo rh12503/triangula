@@ -32,9 +32,7 @@ func (t TriFit) Hash() uint64 {
 	x := int(t.aX) + int(t.bX) + int(t.cX)
 	y := int(t.aY) + int(t.bY) + int(t.cY)
 
-	hash := uint64((53+x)*53 + y)
-
-	return hash
+	return uint64((97+x)*97 + y)
 }
 
 // fastRound is an optimized version of math.Round.

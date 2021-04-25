@@ -1,6 +1,6 @@
 .DS_Store
 .idea/
-out.txt
+*.txt
 main.go
 *.prof
 imgs/
