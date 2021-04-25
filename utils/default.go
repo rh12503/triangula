@@ -24,7 +24,7 @@ func DefaultAlgorithm(numPoints int, image image.Image) algorithm.Algorithm{
 
 	var mutator mutation.Method
 
-	mutator = mutation.NewGaussianMethod(2./float64(numPoints), 0.3)
+	mutator = mutation.DefaultGaussianMethod(numPoints)
 
 	algo := algorithm.NewSimple(pointFactory, 400, 5, evaluatorFactory, mutator)
 	return algo

@@ -35,3 +35,8 @@ func (g gaussianMethod) Mutate(points normgeom.NormPointGroup, mutated func(muta
 func NewGaussianMethod(rate float64, amount float64) gaussianMethod {
 	return gaussianMethod{rate: float32(rate), amount: amount}
 }
+
+// DefaultGaussianMethod returns a gaussianMethod which is optimal for almost all cases.
+func DefaultGaussianMethod(numPoints int) gaussianMethod {
+	return gaussianMethod{rate: 2 / float32(numPoints), amount: 0.3}
+}
