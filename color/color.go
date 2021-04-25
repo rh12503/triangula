@@ -8,8 +8,8 @@ type RGB struct {
 	B float64
 }
 
-// NewNormRGB returns a new RGB.
-func NewNormRGB(r, g, b float64) RGB {
+// NewRGB returns a new RGB.
+func NewRGB(r, g, b float64) RGB {
 	return RGB{r, g, b}
 }
 
@@ -30,7 +30,7 @@ func (argb *AverageRGB) Add(rgb RGB) {
 // Average returns the average of all added colors.
 func (argb AverageRGB) Average() RGB {
 	c := float64(argb.count)
-	return NewNormRGB(argb.rgb.R/c, argb.rgb.G/c, argb.rgb.B/c)
+	return NewRGB(argb.rgb.R/c, argb.rgb.G/c, argb.rgb.B/c)
 }
 
 // Count returns the number of colors added to the average
