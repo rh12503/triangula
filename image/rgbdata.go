@@ -42,8 +42,8 @@ func ToData(image image.Image) RGBData {
 	for y := range data.pixels {
 		for x := range data.pixels[y] {
 			col := &data.pixels[y][x]
-
 			r, g, b, _ := image.At(x, y).RGBA()
+
 			col.R = convertColor(r)
 			col.G = convertColor(g)
 			col.B = convertColor(b)
@@ -55,5 +55,5 @@ func ToData(image image.Image) RGBData {
 
 // convertColor is a utility function for converting uint32 RGB values to RGB values between 0 and 1.
 func convertColor(color uint32) float64 {
-	return float64(int(color)/257) / 255
+	return float64(color >> 8) / 255
 }

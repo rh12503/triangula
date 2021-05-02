@@ -25,23 +25,15 @@ func TrianglesOnImage(triangles []geom.Triangle, image image.Data) []TriangleDat
 	for i, t := range triangles {
 		// Calculate the average color of all the pixels in the triangle
 		var color color.AverageRGB
-		c := 0
+
 		rasterize.DDATriangle(t, func(x, y int) {
 			color.Add(image.RGBAt(x, y))
-			c++
 		})
 
 		// If there were no pixels in the triangle, set the color to the nearest pixel (to avoid artifacts)
-		if c == 0 {
+		if color.Count() == 0 {
 			for _, p := range t.Points {
-				x, y := p.X, p.Y
-				if x == w {
-					x--
-				}
-
-				if y == h {
-					y--
-				}
+				x, y := min(p.X, w), min(p.Y, h)
 
 				color.Add(image.RGBAt(x, y))
 			}
@@ -55,4 +47,12 @@ func TrianglesOnImage(triangles []geom.Triangle, image image.Data) []TriangleDat
 	}
 
 	return triangleData
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+
+	return b
 }
