@@ -6,7 +6,7 @@ import (
 )
 
 // PointsData stores data regarding a point group, and is used by the fitness function.
-type PointsData struct {
+type PointsData struct  {
 	Points    normgeom.NormPointGroup
 	Mutations []mutation.Mutation
 }

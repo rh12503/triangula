@@ -50,10 +50,7 @@ func (t *TrianglesImageFitnessFunction) Calculate(data PointsData) float64 {
 		// If there's no base triangulation, the whole triangulation needs to be recalculated
 		t.Triangulation = incrdelaunay.NewDelaunay(w, h)
 		for _, p := range points {
-			t.Triangulation.Insert(incrdelaunay.Point{
-				X: int16(fastRound(p.X * float64(w))),
-				Y: int16(fastRound(p.Y * float64(h))),
-			})
+			t.Triangulation.Insert(createPoint(p.X, p.Y, w, h))
 		}
 	} else if t.Base != nil {
 		// If there is a base triangulation, set this triangulation to the base
@@ -61,17 +58,11 @@ func (t *TrianglesImageFitnessFunction) Calculate(data PointsData) float64 {
 
 		// And then modify the points that have been mutated
 		for _, m := range data.Mutations {
-			t.Triangulation.Remove(incrdelaunay.Point{
-				X: int16(fastRound(m.Old.X * float64(w))),
-				Y: int16(fastRound(m.Old.Y * float64(h))),
-			})
+			t.Triangulation.Remove(createPoint(m.Old.X, m.Old.Y, w, h))
 		}
 
 		for _, m := range data.Mutations {
-			t.Triangulation.Insert(incrdelaunay.Point{
-				X: int16(fastRound(m.New.X * float64(w))),
-				Y: int16(fastRound(m.New.Y * float64(h))),
-			})
+			t.Triangulation.Insert(createPoint(m.New.X, m.New.Y, w, h))
 		}
 	}
 
@@ -171,6 +162,13 @@ func (t *TrianglesImageFitnessFunction) Calculate(data PointsData) float64 {
 	difference += maxPixelDifference * blank
 
 	return 1 - (difference / t.maxDifference)
+}
+
+func createPoint(x, y float64, w, h int) incrdelaunay.Point {
+	return incrdelaunay.Point{
+		X: int16(fastRound(x * float64(w))),
+		Y: int16(fastRound(y * float64(h))),
+	}
 }
 
 // TrianglesImageFitnessFunctions returns an array of fitness functions.
