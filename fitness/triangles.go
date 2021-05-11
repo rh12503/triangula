@@ -31,7 +31,7 @@ type TrianglesImageFitnessFunction struct {
 
 	// The variance calculated for each triangle are put here. This means if the triangles don't change
 	// in the next generation, they won't need to be reevaluated.
-	NextCache []TriFit
+	nextCache []TriFit
 
 	// The triangulation used to create the triangles.
 	Triangulation *incrdelaunay.Delaunay
@@ -69,7 +69,7 @@ func (t *TrianglesImageFitnessFunction) Calculate(data PointsData) float64 {
 	// Prepare for next generation
 	t.Base = nil
 
-	t.NextCache = t.NextCache[:0]
+	t.nextCache = t.nextCache[:0]
 
 	pixels := t.target.pixels
 	pixelsN := t.targetN.pixels
@@ -145,15 +145,15 @@ func (t *TrianglesImageFitnessFunction) Calculate(data PointsData) float64 {
 			difference += diff
 			triData.fitness = diff
 			triData.OtherHash = index0
-			t.NextCache = append(t.NextCache, triData)
+			t.nextCache = append(t.nextCache, triData)
 		} else {
 			// If the triangle is in the cache, we don't need to recalculate the variance
 			difference += data.fitness
-			t.NextCache = append(t.NextCache, data)
+			t.nextCache = append(t.nextCache, data)
 		}
 	})
 
-	t.TriangleCache = t.NextCache
+	t.TriangleCache = t.nextCache
 
 	// Lower the fitness based on how many blank pixels there are (the smaller the area)
 	// (As the triangles should cover the entire image)
@@ -169,6 +169,11 @@ func createPoint(x, y float64, w, h int) incrdelaunay.Point {
 		X: int16(fastRound(x * float64(w))),
 		Y: int16(fastRound(y * float64(h))),
 	}
+}
+
+// FastRound is an optimized version of math.Round.
+func fastRound(n float64) int {
+	return int(n+0.5) << 0
 }
 
 // TrianglesImageFitnessFunctions returns an array of fitness functions.

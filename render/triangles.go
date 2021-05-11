@@ -33,7 +33,7 @@ func TrianglesOnImage(triangles []geom.Triangle, image image.Data) []TriangleDat
 		// If there were no pixels in the triangle, set the color to the nearest pixel (to avoid artifacts)
 		if color.Count() == 0 {
 			for _, p := range t.Points {
-				x, y := min(p.X, w), min(p.Y, h)
+				x, y := min(p.X, w-1), min(p.Y, h-1)
 
 				color.Add(image.RGBAt(x, y))
 			}

@@ -1,14 +1,13 @@
 package fitness
 
-import (
-	"github.com/RH12503/Triangula/mutation"
-	"github.com/RH12503/Triangula/normgeom"
-)
+import "github.com/RH12503/Triangula/triangulation/incrdelaunay"
 
-// PointsData stores data regarding a point group, and is used by the fitness function.
-type PointsData struct  {
-	Points    normgeom.NormPointGroup
-	Mutations []mutation.Mutation
+// A CacheFunction represents a fitness function that caches data for efficiency.
+type CacheFunction interface {
+	Function
+
+	Triangulation() *incrdelaunay.Delaunay
+	SetTriangulation(*incrdelaunay.Delaunay)
 }
 
 // TriFit stores the triangles vertices and its fitness, and is used to cache calculations.
@@ -33,9 +32,4 @@ func (t TriFit) Hash() uint64 {
 	y := int(t.aY) + int(t.bY) + int(t.cY)
 
 	return uint64((97+x)*97 + y)
-}
-
-// fastRound is an optimized version of math.Round.
-func fastRound(n float64) int {
-	return int(n+0.5) << 0
 }

@@ -3,7 +3,6 @@ package utils
 
 import (
 	"fmt"
-	"math"
 	"runtime"
 )
 
@@ -23,6 +22,3 @@ func bToMb(b uint64) uint64 {
 	return b / 1024 / 1024
 }
 
-func scale(num float64, d int) int {
-	return int(math.Round(num * float64(d)))
-}
