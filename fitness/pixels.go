@@ -4,7 +4,7 @@ import (
 	"github.com/RH12503/Triangula/image"
 )
 
-// pixelData stores data relating to the pixels of an image, and is used in TrianglesImageFitnessFunction.
+// pixelData stores data relating to the pixels of an image, and is used in TrianglesImageFunction.
 type pixelData struct {
 	pixels        [][]pixel
 	width, height int
@@ -15,7 +15,7 @@ func (p pixelData) Size() (int, int) {
 	return p.width, p.height
 }
 
-// pixel stores RGB values of a pixel as well as the sum of their squares. These values are used in TrianglesImageFitnessFunction.
+// pixel stores RGB values of a pixel as well as the sum of their squares. These values are used in TrianglesImageFunction.
 type pixel struct {
 	r, g, b uint8
 	sq      uint32

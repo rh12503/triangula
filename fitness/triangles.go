@@ -13,11 +13,11 @@ import (
 // 255 needs to be squared.
 const maxPixelDifference = 255 * 255 * 3
 
-// TrianglesImageFitnessFunction is a fitness function that calculates how optimal a point group is when
+// TrianglesImageFunction is a fitness function that calculates how optimal a point group is when
 // triangulated and "placed" onto a target image.
 // It does this by first calculating the Delaunay triangulation of the points, then iterating through the
 // pixels of the triangles and calculating the variance to the target image. (The lower the variance the better)
-type TrianglesImageFitnessFunction struct {
+type TrianglesImageFunction struct {
 	target pixelData // pixels data of the target image.
 
 	// Variance data stored in blocks of pixels. The variance of a N*N block can easily be found instead of
@@ -41,7 +41,7 @@ type TrianglesImageFitnessFunction struct {
 }
 
 // Calculate returns the fitness of a group of points.
-func (t *TrianglesImageFitnessFunction) Calculate(data PointsData) float64 {
+func (t *TrianglesImageFunction) Calculate(data PointsData) float64 {
 	points := data.Points
 
 	w, h := t.target.Size()
@@ -164,6 +164,18 @@ func (t *TrianglesImageFitnessFunction) Calculate(data PointsData) float64 {
 	return 1 - (difference / t.maxDifference)
 }
 
+func (t *TrianglesImageFunction) SetBase(other CacheFunction) {
+	t.Base = other.(*TrianglesImageFunction).Triangulation
+}
+
+func (t *TrianglesImageFunction) Cache() []TriFit {
+	return t.TriangleCache
+}
+
+func (t *TrianglesImageFunction) SetCache(cache []TriFit) {
+	t.TriangleCache = cache
+}
+
 func createPoint(x, y float64, w, h int) incrdelaunay.Point {
 	return incrdelaunay.Point{
 		X: int16(fastRound(x * float64(w))),
@@ -171,23 +183,18 @@ func createPoint(x, y float64, w, h int) incrdelaunay.Point {
 	}
 }
 
-// FastRound is an optimized version of math.Round.
-func fastRound(n float64) int {
-	return int(n+0.5) << 0
-}
-
-// TrianglesImageFitnessFunctions returns an array of fitness functions.
-func TrianglesImageFitnessFunctions(target image.Data, blockSize, n int) []*TrianglesImageFitnessFunction {
+// TrianglesImageFunctions returns an array of fitness functions.
+func TrianglesImageFunctions(target image.Data, blockSize, n int) []CacheFunction {
 	w, h := target.Size()
 
-	functions := make([]*TrianglesImageFitnessFunction, n)
+	functions := make([]CacheFunction, n)
 	pixels := fromImage(target)
 	pixelsN := fromImageN(target, blockSize)
 
 	maxDiff := float64(maxPixelDifference * w * h)
 
 	for i := 0; i < n; i++ {
-		function := TrianglesImageFitnessFunction{
+		function := TrianglesImageFunction{
 			target:        pixels,
 			targetN:       pixelsN,
 			blockSize:     blockSize,
@@ -200,11 +207,11 @@ func TrianglesImageFitnessFunctions(target image.Data, blockSize, n int) []*Tria
 	return functions
 }
 
-// NewTrianglesImageFitnessFunction returns a new fitness function.
-func NewTrianglesImageFitnessFunction(target image.Data, blockSize int) *TrianglesImageFitnessFunction {
+// NewTrianglesImageFunction returns a new fitness function.
+func NewTrianglesImageFunction(target image.Data, blockSize int) CacheFunction {
 	w, h := target.Size()
 
-	return &TrianglesImageFitnessFunction{
+	return &TrianglesImageFunction{
 		target:        fromImage(target),
 		targetN:       fromImageN(target, blockSize),
 		blockSize:     blockSize,

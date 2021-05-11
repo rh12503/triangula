@@ -1,13 +1,12 @@
 package fitness
 
-import "github.com/RH12503/Triangula/triangulation/incrdelaunay"
-
 // A CacheFunction represents a fitness function that caches data for efficiency.
 type CacheFunction interface {
 	Function
 
-	Triangulation() *incrdelaunay.Delaunay
-	SetTriangulation(*incrdelaunay.Delaunay)
+	SetBase(function CacheFunction)
+	Cache() []TriFit
+	SetCache([]TriFit)
 }
 
 // TriFit stores the triangles vertices and its fitness, and is used to cache calculations.

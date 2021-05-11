@@ -3,6 +3,7 @@ package utils
 import (
 	"github.com/RH12503/Triangula/algorithm"
 	"github.com/RH12503/Triangula/algorithm/evaluator"
+	"github.com/RH12503/Triangula/fitness"
 	"github.com/RH12503/Triangula/generator"
 	imageData "github.com/RH12503/Triangula/image"
 	"github.com/RH12503/Triangula/mutation"
@@ -19,7 +20,7 @@ func DefaultAlgorithm(numPoints int, image image.Image) algorithm.Algorithm{
 	}
 
 	evaluatorFactory := func(n int) evaluator.Evaluator {
-		return evaluator.NewParallel(img, 22, 5, n)
+		return evaluator.NewParallel(fitness.TrianglesImageFunctions(img, 5, n), 22)
 	}
 
 	var mutator mutation.Method
