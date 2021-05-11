@@ -2,6 +2,7 @@ package algorithm
 
 import (
 	"github.com/RH12503/Triangula/algorithm/evaluator"
+	"github.com/RH12503/Triangula/fitness"
 	"github.com/RH12503/Triangula/generator"
 	imageData "github.com/RH12503/Triangula/image"
 	"github.com/RH12503/Triangula/mutation"
@@ -44,7 +45,7 @@ func BenchmarkAlgorithm(b *testing.B) {
 		return (generator.RandomGenerator{}).Generate(3000)
 	}
 	evaluatorFactory := func(n int) evaluator.Evaluator {
-		return evaluator.NewParallel(imgData, 22, 5, n)
+		return evaluator.NewParallel(fitness.TrianglesImageFunctions(imgData, 5, n), 22)
 	}
 
 	mutator := mutation.NewGaussianMethod(0.001, 0.3)
