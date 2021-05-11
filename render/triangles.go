@@ -49,10 +49,3 @@ func TrianglesOnImage(triangles []geom.Triangle, image image.Data) []TriangleDat
 	return triangleData
 }
 
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-
-	return b
-}
