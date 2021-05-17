@@ -58,7 +58,19 @@ func (pm *pointMap) RemovePoint(point Point) uint16 {
 	panic("point doesn't exist")
 }
 
-// NumPoints returns the number of points in the pointMap.
+func (pm *pointMap) CopiesOf(point Point) uint16 {
+	x, y := uint16(point.X), uint16(point.Y)
+	index := point.Hash() % len(pm.points)
+
+	for _, p := range pm.points[index] {
+		if x == p.x && y == p.y {
+			return p.count
+		}
+	}
+	return 0
+}
+
+// NumPoints returns the number of polygons in the pointMap.
 func (pm *pointMap) NumPoints() int {
 	total := 0
 	for _, p := range pm.points {
@@ -80,6 +92,17 @@ func (pm *pointMap) Set(other *pointMap) {
 		}
 
 		copy(pm.points[i], other.points[i])
+	}
+}
+
+func (pm pointMap) IterPoints(point func(Point)) {
+	for i := range pm.points {
+		for _, p := range pm.points[i] {
+			point(Point{
+				X: int16(p.x),
+				Y: int16(p.y),
+			})
+		}
 	}
 }
 

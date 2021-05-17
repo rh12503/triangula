@@ -1,5 +1,5 @@
 // Package incrdelaunay implements a library for incremental Delaunay triangulation, with support for
-// dynamically adding and removing points.
+// dynamically adding and removing polygons.
 package incrdelaunay
 
 import (
@@ -17,7 +17,7 @@ type Delaunay struct {
 
 	freeTriangles []uint16 // A list of free indexes in the triangles slice.
 
-	superTriangle Triangle // A triangle that contains all points added.
+	superTriangle Triangle // A triangle that contains all polygons added.
 
 	edges []Edge // For performance purposes.
 
@@ -25,7 +25,8 @@ type Delaunay struct {
 
 	ears []ear // For performance purposes.
 
-	numPoints int // The number of points in the triangulation (including duplicate points).
+	numPoints int // The number of polygons in the triangulation (including duplicate polygons).
+	uniquePoints int
 }
 
 // NewDelaunay returns a new Delaunay triangulation.
@@ -45,9 +46,11 @@ func NewDelaunay(w, h int) *Delaunay {
 }
 
 // Insert adds a point to the Delaunay triangulation using the Bowyer-Watson algorithm.
-// Duplicate points are kept track of.
+// Duplicate polygons are kept track of.
 func (d *Delaunay) Insert(p Point) bool {
-	d.pointMap.AddPoint(p)
+	if d.pointMap.AddPoint(p) == 1 {
+		d.uniquePoints++
+	}
 
 	d.numPoints++
 
@@ -85,6 +88,7 @@ func (d *Delaunay) Remove(p Point) {
 	if d.pointMap.RemovePoint(p) != 0 {
 		return
 	}
+	d.uniquePoints--
 	d.hull = d.hull[:0]
 
 	// Adds a point to the hull
@@ -116,7 +120,7 @@ func (d *Delaunay) Remove(p Point) {
 		d.markFreeTriangle(i)
 	})
 
-	// Sort the points in the hull counterclockwise
+	// Sort the polygons in the hull counterclockwise
 	sort.Slice(d.hull, func(i, j int) bool {
 		a := d.hull[j]
 		b := d.hull[i]
@@ -147,7 +151,7 @@ func (d *Delaunay) Remove(p Point) {
 
 	// Add the ears one by one based on its score
 	// using the algorithm described in: https://hal.inria.fr/inria-00167201/document.
-	// An ear is essentially a triangle made by three consecutive points along the hull
+	// An ear is a triangle made by three consecutive points along the hull
 	d.ears = d.ears[:0]
 
 	// Create the ears of the hull and calculate their scores
@@ -267,7 +271,7 @@ func (d Delaunay) IterTriangles(triangle func(t Triangle)) {
 	}
 }
 
-// NumPoints returns the number of points in the triangulation, including duplicate points.
+// NumPoints returns the number of polygons in the triangulation, including duplicate polygons.
 func (d Delaunay) NumPoints() int {
 	return d.numPoints
 }

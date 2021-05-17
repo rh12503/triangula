@@ -3,24 +3,35 @@ package polygonation
 import (
 	"github.com/RH12503/Triangula/geom"
 	"github.com/RH12503/Triangula/normgeom"
-	"github.com/RH12503/Triangula/polygonation/voronoi"
+	"github.com/RH12503/Triangula/triangulation/incrdelaunay"
 	"math"
 )
 
 func Polygonate(points normgeom.NormPointGroup, w, h int) []geom.Polygon {
 	fW, fH := float64(w), float64(h)
 
-	sites := make([]voronoi.Vertex, len(points))
-
-	for i := range sites {
-		p := points[i]
-		sites[i] = voronoi.Vertex{
-			X: math.Round(p.X * fW),
-			Y: math.Round(p.X * fH),
-		}
+	triangulation := incrdelaunay.NewDelaunay(w, h)
+	for _, p := range points {
+		triangulation.Insert(incrdelaunay.Point{
+			X: int16(math.Round(p.X * fW)),
+			Y: int16(math.Round(p.Y * fH)),
+		})
 	}
 
-	bounds := voronoi.NewBBox(0, fW, 0, fH)
+	var polygons []geom.Polygon
 
-	diagram := voronoi.ComputeDiagram()
+	incrdelaunay.Voronoi(triangulation, func(points []incrdelaunay.FloatPoint) {
+		var polygon geom.Polygon
+
+		for _, p := range points {
+			polygon.Points = append(polygon.Points, geom.Point{
+				X: int(math.Round(p.X)),
+				Y: int(math.Round(p.Y)),
+			})
+		}
+
+		polygons = append(polygons, polygon)
+	}, w, h)
+
+	return polygons
 }
