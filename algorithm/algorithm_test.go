@@ -46,7 +46,7 @@ func BenchmarkAlgorithm(b *testing.B) {
 		return (generator.RandomGenerator{}).Generate(1000)
 	}
 	evaluatorFactory := func(n int) evaluator.Evaluator {
-		return evaluator.NewParallel(fitness.PolygonsImageFunctions(imgData, 5, n), 22)
+		return evaluator.NewParallel(fitness.TrianglesImageFunctions(imgData, 5, n), 22)
 	}
 
 	mutator := mutation.NewGaussianMethod(2/1000, 0.3)
