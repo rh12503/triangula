@@ -12,9 +12,9 @@ func (t Triangle) ToNorm(w, h int) normgeom.NormTriangle {
 	v := t.Points
 
 	return normgeom.NormTriangle{Points: [3]normgeom.NormPoint{
-		v[0].toNorm(w, h),
-		v[1].toNorm(w, h),
-		v[2].toNorm(w, h),
+		v[0].ToNorm(w, h),
+		v[1].ToNorm(w, h),
+		v[2].ToNorm(w, h),
 	}}
 }
 

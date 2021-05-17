@@ -166,6 +166,35 @@ func (c CircumcircleGrid) RemoveCircumcirclesThatContain(p Point, triangles []Tr
 	}
 }
 
+func (c CircumcircleGrid) IterCircumcirclesThatContain(p Point, triangles []Triangle, contains func(i uint16)) {
+	// Find which box of the grid the point falls into
+	x := int(math.Floor(float64(p.X) / c.colPixels))
+	y := int(math.Floor(float64(p.Y) / c.rowPixels))
+
+	if x == c.cols {
+		x = c.cols - 1
+	}
+
+	if y == c.rows {
+		y = c.rows - 1
+	}
+
+	group := c.triangles[x][y]
+	size := len(group)
+
+	for i := 0; i < size; i++ {
+		t := group[i]
+
+		tri := triangles[t]
+		if tri.A.X == -1 {
+			panic("UH OH")
+		}
+		if inCircle(int64(tri.A.X), int64(tri.A.Y), int64(tri.B.X), int64(tri.B.Y), int64(tri.C.X), int64(tri.C.Y), int64(p.X), int64(p.Y)) >= 0 {
+			contains(t)
+		}
+	}
+}
+
 // RemoveThatHasVertex removes all triangles that have a vertex.
 func (c CircumcircleGrid) RemoveThatHasVertex(p Point, triangles []Triangle, contains func(i uint16)) {
 	// Find which box of the grid the point falls into
@@ -193,6 +222,32 @@ func (c CircumcircleGrid) RemoveThatHasVertex(p Point, triangles []Triangle, con
 			c.RemoveTriangle(tri, t)
 			i--
 			size--
+		}
+	}
+}
+
+func (c CircumcircleGrid) IterThatHasVertex(p Point, triangles []Triangle, contains func(i uint16)) {
+	// Find which box of the grid the point falls into
+	x := int(math.Floor(float64(p.X) / c.colPixels))
+	y := int(math.Floor(float64(p.Y) / c.rowPixels))
+
+	if x == c.cols {
+		x = c.cols - 1
+	}
+
+	if y == c.rows {
+		y = c.rows - 1
+	}
+
+	group := c.triangles[x][y]
+	size := len(group)
+
+	for i := 0; i < size; i++ {
+		t := group[i]
+
+		tri := triangles[t]
+		if tri.HasVertex(p) {
+			contains(t)
 		}
 	}
 }

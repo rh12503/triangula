@@ -8,16 +8,11 @@ import (
 	"math"
 )
 
-// The maximum difference for each pixel
-// there can be when compared to the target image. Variance is calculated, so the
-// 255 needs to be squared.
-const maxPixelDifference = 255 * 255 * 3
-
-// TrianglesImageFunction is a fitness function that calculates how optimal a point group is when
+// trianglesImageFunction is a fitness function that calculates how optimal a point group is when
 // triangulated and "placed" onto a target image.
 // It does this by first calculating the Delaunay triangulation of the points, then iterating through the
 // pixels of the triangles and calculating the variance to the target image. (The lower the variance the better)
-type TrianglesImageFunction struct {
+type trianglesImageFunction struct {
 	target pixelData // pixels data of the target image.
 
 	// Variance data stored in blocks of pixels. The variance of a N*N block can easily be found instead of
@@ -27,11 +22,11 @@ type TrianglesImageFunction struct {
 
 	maxDifference float64 // The maximum difference of all pixels to the target image.
 
-	TriangleCache []TriFit // A cache storing triangles that have already had their variances calculated.
+	TriangleCache []CacheData // A cache storing triangles that have already had their variances calculated.
 
 	// The variance calculated for each triangle are put here. This means if the triangles don't change
 	// in the next generation, they won't need to be reevaluated.
-	nextCache []TriFit
+	nextCache []CacheData
 
 	// The triangulation used to create the triangles.
 	Triangulation *incrdelaunay.Delaunay
@@ -41,7 +36,7 @@ type TrianglesImageFunction struct {
 }
 
 // Calculate returns the fitness of a group of points.
-func (t *TrianglesImageFunction) Calculate(data PointsData) float64 {
+func (t *trianglesImageFunction) Calculate(data PointsData) float64 {
 	points := data.Points
 
 	w, h := t.target.Size()
@@ -92,7 +87,7 @@ func (t *TrianglesImageFunction) Calculate(data PointsData) float64 {
 		// The total area is taken into account when calculating the fitness
 		area += math.Abs(0.5 * ((float64(b.X-a.X) * float64(c.Y-a.Y)) - (float64(c.X-a.X) * float64(b.Y-a.Y))))
 
-		triData := TriFit{
+		triData := &TriangleCacheData{
 			aX: a.X,
 			aY: a.Y,
 			bX: b.X,
@@ -108,7 +103,7 @@ func (t *TrianglesImageFunction) Calculate(data PointsData) float64 {
 		data := tris[index0]
 
 		// Check if the triangle is in the cache
-		if !data.Equals(triData) {
+		if data == nil || !data.Equals(triData) {
 			// The triangle isn't in the hash, so calculate the variance
 			// Welford's online algorithm is used:
 			// https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Welford's_online_algorithm
@@ -144,11 +139,11 @@ func (t *TrianglesImageFunction) Calculate(data PointsData) float64 {
 			}
 			difference += diff
 			triData.fitness = diff
-			triData.OtherHash = index0
+			triData.SetCachedHash(index0)
 			t.nextCache = append(t.nextCache, triData)
 		} else {
 			// If the triangle is in the cache, we don't need to recalculate the variance
-			difference += data.fitness
+			difference += data.Data()
 			t.nextCache = append(t.nextCache, data)
 		}
 	})
@@ -164,23 +159,16 @@ func (t *TrianglesImageFunction) Calculate(data PointsData) float64 {
 	return 1 - (difference / t.maxDifference)
 }
 
-func (t *TrianglesImageFunction) SetBase(other CacheFunction) {
-	t.Base = other.(*TrianglesImageFunction).Triangulation
+func (t *trianglesImageFunction) SetBase(other CacheFunction) {
+	t.Base = other.(*trianglesImageFunction).Triangulation
 }
 
-func (t *TrianglesImageFunction) Cache() []TriFit {
+func (t *trianglesImageFunction) Cache() []CacheData {
 	return t.TriangleCache
 }
 
-func (t *TrianglesImageFunction) SetCache(cache []TriFit) {
+func (t *trianglesImageFunction) SetCache(cache []CacheData) {
 	t.TriangleCache = cache
-}
-
-func createPoint(x, y float64, w, h int) incrdelaunay.Point {
-	return incrdelaunay.Point{
-		X: int16(fastRound(x * float64(w))),
-		Y: int16(fastRound(y * float64(h))),
-	}
 }
 
 // TrianglesImageFunctions returns an array of fitness functions.
@@ -194,12 +182,12 @@ func TrianglesImageFunctions(target image.Data, blockSize, n int) []CacheFunctio
 	maxDiff := float64(maxPixelDifference * w * h)
 
 	for i := 0; i < n; i++ {
-		function := TrianglesImageFunction{
+		function := trianglesImageFunction{
 			target:        pixels,
 			targetN:       pixelsN,
 			blockSize:     blockSize,
 			maxDifference: maxDiff,
-			TriangleCache: make([]TriFit, 2),
+			TriangleCache: make([]CacheData, 2),
 		}
 		functions[i] = &function
 	}
@@ -211,11 +199,11 @@ func TrianglesImageFunctions(target image.Data, blockSize, n int) []CacheFunctio
 func NewTrianglesImageFunction(target image.Data, blockSize int) CacheFunction {
 	w, h := target.Size()
 
-	return &TrianglesImageFunction{
+	return &trianglesImageFunction{
 		target:        fromImage(target),
 		targetN:       fromImageN(target, blockSize),
 		blockSize:     blockSize,
 		maxDifference: float64(maxPixelDifference * w * h),
-		TriangleCache: make([]TriFit, 2),
+		TriangleCache: make([]CacheData, 2),
 	}
 }

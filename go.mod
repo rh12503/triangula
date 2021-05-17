@@ -8,5 +8,6 @@ require (
 	github.com/fogleman/delaunay v0.0.0-20180910191513-63f09b4c883d
 	github.com/lazybeaver/xorshift v0.0.0-20170702203709-ce511d4823dd // indirect
 	github.com/panjf2000/ants/v2 v2.4.3
+	github.com/paulmach/orb v0.2.1 // indirect
 	github.com/stretchr/testify v1.4.0
 )
