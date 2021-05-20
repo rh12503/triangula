@@ -107,7 +107,8 @@ func main() {
 
     evaluatorFactory := func(n int) evaluator.Evaluator {
           // 22 for the cache size and 5 for the block size
-          return evaluator.NewParallel(img, 22, 5, n)
+          // use PolygonsImageFunctions for polygons 
+		  return evaluator.NewParallel(fitness.TrianglesImageFunctions(imgData, 5, n), 22)
     }
 
     var mutator mutation.Method
@@ -116,7 +117,7 @@ func main() {
     mutator = mutation.NewGaussianMethod(0.01, 0.3)
 
     // 400 population size and 5 cutoff
-    algo := algorithm.NewSimple(pointFactory, 400, 5, evaluatorFactory, mutator)
+    algo := algorithm.NewModifiedGenetic(pointFactory, 400, 5, evaluatorFactory, mutator)
 
     // Run the algorithm
     for {
