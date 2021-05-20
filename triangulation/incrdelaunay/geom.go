@@ -10,7 +10,7 @@ type Triangle struct {
 	Circumcircle Circumcircle
 }
 
-// NewTriangle return a new Triangle and calculates its circumcircle given three polygons.
+// NewTriangle return a new Triangle and calculates its circumcircle given three points.
 func NewTriangle(a, b, c Point) Triangle {
 	return Triangle{
 		A:            a,
@@ -25,7 +25,7 @@ func (t Triangle) HasVertex(p Point) bool {
 	return t.A == p || t.B == p || t.C == p
 }
 
-// NewSuperTriangle returns a Triangle large enough to cover all polygons within (0, 0) to (w, h).
+// NewSuperTriangle returns a Triangle large enough to cover all points within (0, 0) to (w, h).
 func NewSuperTriangle(w, h int) Triangle {
 	hW := int16(math.Ceil(float64(w) / 2))
 	hH := int16(math.Ceil(float64(h) / 2))
@@ -65,7 +65,7 @@ type Circumcircle struct {
 	Radius float32
 }
 
-// calcCircumcircle calculates the circumcircle of three polygons.
+// calcCircumcircle calculates the circumcircle of three points.
 func calcCircumcircle(v0, v1, v2 Point) Circumcircle {
 	var circumcircle Circumcircle
 
@@ -114,9 +114,9 @@ func (e Edge) Equals(b Edge) bool {
 	return e.A == b.A && e.B == b.B
 }
 
-// NewEdge returns a new edge with its polygons sorted.
+// NewEdge returns a new edge with its points sorted.
 func NewEdge(a, b Point) Edge {
-	// Order the polygons in the edge
+	// Order the points in the edge
 	if a.X > b.X {
 		a, b = b, a
 	} else if a.X == b.X {

@@ -1,5 +1,5 @@
 // Package incrdelaunay implements a library for incremental Delaunay triangulation, with support for
-// dynamically adding and removing polygons.
+// dynamically adding and removing points.
 package incrdelaunay
 
 import (
@@ -17,7 +17,7 @@ type Delaunay struct {
 
 	freeTriangles []uint16 // A list of free indexes in the triangles slice.
 
-	superTriangle Triangle // A triangle that contains all polygons added.
+	superTriangle Triangle // A triangle that contains all points added.
 
 	edges []Edge // For performance purposes.
 
@@ -25,7 +25,7 @@ type Delaunay struct {
 
 	ears []ear // For performance purposes.
 
-	numPoints int // The number of polygons in the triangulation (including duplicate polygons).
+	numPoints int // The number of points in the triangulation (including duplicate points).
 	uniquePoints int
 }
 
@@ -46,7 +46,7 @@ func NewDelaunay(w, h int) *Delaunay {
 }
 
 // Insert adds a point to the Delaunay triangulation using the Bowyer-Watson algorithm.
-// Duplicate polygons are kept track of.
+// Duplicate points are kept track of.
 func (d *Delaunay) Insert(p Point) bool {
 	if d.pointMap.AddPoint(p) == 1 {
 		d.uniquePoints++
@@ -120,7 +120,7 @@ func (d *Delaunay) Remove(p Point) {
 		d.markFreeTriangle(i)
 	})
 
-	// Sort the polygons in the hull counterclockwise
+	// Sort the points in the hull counterclockwise
 	sort.Slice(d.hull, func(i, j int) bool {
 		a := d.hull[j]
 		b := d.hull[i]
@@ -271,7 +271,7 @@ func (d Delaunay) IterTriangles(triangle func(t Triangle)) {
 	}
 }
 
-// NumPoints returns the number of polygons in the triangulation, including duplicate polygons.
+// NumPoints returns the number of points in the triangulation, including duplicate points.
 func (d Delaunay) NumPoints() int {
 	return d.numPoints
 }

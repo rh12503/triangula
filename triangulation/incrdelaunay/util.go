@@ -25,7 +25,7 @@ func inCircle(aX, aY, bX, bY, cX, cY, dX, dY int64) int64 {
 		(a31*a31+a32*a32)*(a11*a22-a21*a12)
 }
 
-// orientation returns a positive integer if polygons abc are clockwise.
+// orientation returns a positive integer if points abc are clockwise.
 func orientation(aX, aY, bX, bY, cX, cY int64) int64 {
 	return (aX-cX)*(bY-cY) - (bX-cX)*(aY-cY)
 }

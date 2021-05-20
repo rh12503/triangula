@@ -121,7 +121,7 @@ func main() {
     // Run the algorithm
     for {
           algo.Step()
-          fmt.Println(algo.Stats().BestFitness)
+          github.com/RH12503/Triangula/.Println(algo.Stats().BestFitness)
     }
 }
 

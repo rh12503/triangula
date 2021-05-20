@@ -13,8 +13,6 @@ func (p Polygon) ToNorm(w, h int) normgeom.NormPolygon {
 
 	for i := range p.Points {
 		new.Points[i] = p.Points[i].ToNorm(w, h)
-		new.Points[i].X = ((new.Points[i].X-0.5) * 0.9) + 0.5
-		new.Points[i].Y = ((new.Points[i].Y-0.5) * 0.9) + 0.5
 	}
 
 	return new

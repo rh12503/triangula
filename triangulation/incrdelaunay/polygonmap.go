@@ -1,9 +1,5 @@
 package incrdelaunay
 
-import (
-	"fmt"
-)
-
 type polygonMap struct {
 	polygons [][]polygonEntry // The table.
 }
@@ -17,15 +13,12 @@ func newPolygonMap(size int) polygonMap {
 
 // AddPoint adds a point to the pointMap, accounting for duplicates.
 func (pm *polygonMap) AddPolygon(point Point, polygon []FloatPoint) {
-	//index := point.Hash() % len(pm.polygons)
+	index := point.Hash() % len(pm.polygons)
 
-	pm.polygons[0] = append(pm.polygons[0], polygonEntry{
+	pm.polygons[index] = append(pm.polygons[index], polygonEntry{
 		point:   point,
 		polygon: polygon,
 	})
-	/*fmt.Println(polygon)
-	fmt.Println(pm.polygons)
-	fmt.Println()*/
 }
 
 func (pm *polygonMap) RemovePolygon(point Point) bool {
@@ -39,10 +32,7 @@ func (pm *polygonMap) RemovePolygon(point Point) bool {
 		}
 	}
 
-	fmt.Println("abababababa", index, len(pm.polygons), point, len(pm.polygons[0]))
-	return false
 	panic("polygon doesn't exist")
-	//os.Exit(1)
 }
 
 // Set sets the pointMap to another pointMap.

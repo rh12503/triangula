@@ -1,9 +1,7 @@
 package incrdelaunay
 
 import (
-	"fmt"
 	"math"
-	"os"
 	"sort"
 )
 
@@ -12,7 +10,7 @@ func NewVoronoi(w, h int) *IVoronoi {
 		delaunay:   NewDelaunay(w, h),
 		w:          w,
 		h:          h,
-		polygonMap: newPolygonMap(1),
+		polygonMap: newPolygonMap(6),
 	}
 	return &voronoi
 }
@@ -28,14 +26,11 @@ type IVoronoi struct {
 	i              int
 }
 
-var Debug = false
-
 func (v *IVoronoi) Insert(point Point) {
 	if v.delaunay.pointMap.CopiesOf(point) > 0 {
 		v.delaunay.Insert(point)
 		return
 	}
-	//fmt.Println(point)
 
 	v.pointsToUpdate = v.pointsToUpdate[:0]
 	triangles := v.delaunay.triangles
@@ -47,26 +42,19 @@ func (v *IVoronoi) Insert(point Point) {
 		v.addPointToUpdate(t.C)
 	})
 
-	//fmt.Println(v.pointsToUpdate)
 
 	v.delaunay.Insert(point)
 
 	for _, p := range v.pointsToUpdate {
 		if !v.polygonMap.RemovePolygon(p) {
-			//fmt.Println(p, v.i, v.pointsToUpdate, v.delaunay.triangles)
-			panic("")
-			//os.Exit(1)
+			panic("oh no")
 		}
-		//fmt.Println(len(v.polygonMap.polygons[0]))
 	}
 
 	v.addPointToUpdate(point)
 	for _, p := range v.pointsToUpdate {
-		//fmt.Println(p)
 		v.processPoint(p)
 	}
-	//if Debug  {fmt.Println(len(v.polygonMap.polygons[0]))}
-	//fmt.Println("END")
 }
 
 func (v *IVoronoi) Remove(point Point) {
@@ -88,10 +76,9 @@ func (v *IVoronoi) Remove(point Point) {
 
 	v.delaunay.Remove(point)
 
-	for i, p := range v.pointsToUpdate {
+	for _, p := range v.pointsToUpdate {
 		if !v.polygonMap.RemovePolygon(p) {
-			fmt.Println(p, point, len(v.polygonMap.polygons[0]), i)
-			os.Exit(2)
+			panic("uh oh")
 		}
 	}
 

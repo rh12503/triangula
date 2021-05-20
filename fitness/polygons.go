@@ -78,18 +78,20 @@ func (g *polygonsImageFunction) Calculate(data PointsData) float64 {
 		polygon.Points = polygon.Points[:0]
 		polygonData = polygonData[:0]
 
-
 		for _, p := range points {
-			polygon.Points = append(polygon.Points, geom.Point{
+			new := geom.Point{
 				X: fastRound(p.X),
 				Y: fastRound(p.Y),
-			})
-			polygonData = append(polygonData, int16(fastRound(p.X)))
-			polygonData = append(polygonData, int16(fastRound(p.Y)))
+			}
+			if len(polygon.Points) == 0 || polygon.Points[len(polygon.Points)-1] != new {
+				polygon.Points = append(polygon.Points, new)
+				polygonData = append(polygonData, int16(new.X))
+				polygonData = append(polygonData, int16(new.Y))
+			}
 		}
 
 		polyData := &PolygonCacheData{
-			coords:  polygonData,
+			coords: polygonData,
 		}
 
 		hash := polyData.Hash()
@@ -107,7 +109,7 @@ func (g *polygonsImageFunction) Calculate(data PointsData) float64 {
 			var sR0, sG0, sB0 int
 			var sSq int
 
-			rasterize.DDAPolygon(polygon, g.blockSize, func(x0, x1, y int) {
+			rasterize.DDAPolygonBlocks(polygon, g.blockSize, func(x0, x1, y int) {
 				row := pixels[y]
 				if x0 >= 0 && x1 <= len(row) {
 					for x := x0; x < x1; x++ {

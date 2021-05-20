@@ -6,7 +6,7 @@ import (
 	"math/rand"
 )
 
-const startTemp = 0.5
+const startTemp = 1.
 const minTemp = 0.02
 
 type spacedGenerator struct {
@@ -16,6 +16,12 @@ type spacedGenerator struct {
 
 func (s spacedGenerator) Generate(n int) normgeom.NormPointGroup {
 	points := randomPoints(n)
+
+	/*points = append(points, normgeom.NormPoint{0, 0})
+	points = append(points, normgeom.NormPoint{0, 1})
+	points = append(points, normgeom.NormPoint{1, 1})
+	points = append(points, normgeom.NormPoint{1, 0})*/
+
 	temp := startTemp
 
 	for i := 0; i < s.iterations; i++ {
