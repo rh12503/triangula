@@ -2,7 +2,7 @@
   <img src="/assets/logo.svg" width="250px">
 </p>
 
-<p align="center">An iterative algorithm to generate high quality triangulated images.</p>
+<p align="center">An iterative algorithm to generate high quality triangulated and polygonal art from images.</p>
 <p align="center">
 <a><img src="https://github.com/RH12503/Triangula/actions/workflows/test.yml/badge.svg" alt="Test status"></a>
 <a href="https://pkg.go.dev/github.com/RH12503/Triangula"><img src="https://pkg.go.dev/badge/github.com/RH12503/Triangula.svg" alt="Go Reference"></a>
@@ -11,7 +11,7 @@
 <a href="https://twitter.com/intent/tweet?text=An%20iterative%20algorithm%20to%20triangulate%20images.&url=https://github.com/RH12503/triangula&hashtags=golang,geneticalgorithm,generativeart"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social" alt="Tweet"></a>
 </p>
 
-Triangula uses a modified genetic algorithm to triangulate images. It works best with images smaller than 3000px and with fewer than 3000 points, typically producing an optimal result within a couple of minutes. For a full explanation of the algorithm, see [this page in the wiki](https://github.com/RH12503/Triangula/wiki/Explanation-of-the-algorithm). 
+Triangula uses a modified genetic algorithm to triangulate or polygonate images. It works best with images smaller than 3000px and with fewer than 3000 points, typically producing an optimal result within a couple of minutes. For a full explanation of the algorithm, see [this page in the wiki](https://github.com/RH12503/Triangula/wiki/Explanation-of-the-algorithm). 
 
 You can try the algorithm out in your browser [here](https://rh12503.github.io/triangula/), but the desktop app will typically be 20-50x faster. 
 
@@ -21,7 +21,8 @@ You can try the algorithm out in your browser [here](https://rh12503.github.io/t
 Install the [GUI](https://github.com/RH12503/Triangula-GUI) from the [releases page](https://github.com/RH12503/Triangula/releases). 
 The GUI uses [Wails](https://wails.app/) for its frontend. 
 
-<img src="/assets/triangula.gif" width="500">
+<img src="/assets/triangula.gui1" width="50%">
+<img src="/assets/triangula.gui2" width="50%">
 
 If the app isn't running on Linux, go to the Permissions tab in the executable's properties and tick `Allow executing file as program`. 
 
@@ -60,10 +61,17 @@ For almost all cases, only changing the number of points and leaving all other o
 | Repetitions | `--reps, -r`| 500 | The number of generations before saving to the output file (CLI only) | 
 
 ## Examples of output
+#### Triangulated
 <img src="/assets/output/grad.png" height="400"/>
 <img src="/assets/output/plane.png" height="400"/> 
 <img src="/assets/output/sf.png" height="400"/>
+<img src="/assets/output/elon.png" height="400"/>
 <img src="/assets/output/astro.png" height="400"/>
+#### Polygonal
+<img src="/assets/output/dog.png" height="400"/>
+<img src="/assets/output/obama.png" height="400"/> 
+<img src="/assets/output/science.png" height="400"/>
+<img src="/assets/output/queen.png" height="400"/>
 
 ### Comparison to [esimov/triangle](https://github.com/esimov/triangle)
 esimov/triangle seems to be a similar project to Triangula that is also written in Go. However, the two appear to generate very different styles. One big advantage of triangle is that it generates an image almost instantaneously, while Triangula needs to run many iterations. 
