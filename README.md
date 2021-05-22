@@ -62,17 +62,17 @@ For almost all cases, only changing the number of points and leaving all other o
 
 ## Examples of output
 ### Triangulated
-<img src="/assets/output/grad.png" height="350"/>
-<img src="/assets/output/plane.png" height="350"/> 
-<img src="/assets/output/sf.png" height="350"/>
-<img src="/assets/output/elon.png" height="350"/>
-<img src="/assets/output/astro.png" height="350"/>
+<img src="/assets/output/grad.png" height="400"/>
+<img src="/assets/output/plane.png" height="400"/> 
+<img src="/assets/output/sf.png" height="400"/>
+<img src="/assets/output/elon.png" height="400"/>
+<img src="/assets/output/astro.png" height="400"/>
 
 ### Polygonal
-<img src="/assets/output/dog.png" height="350"/>
-<img src="/assets/output/obama.png" height="350"/> 
-<img src="/assets/output/science.png" height="350"/>
-<img src="/assets/output/queen.png" height="350"/>
+<img src="/assets/output/dog.png" height="400"/>
+<img src="/assets/output/obama.png" height="400"/> 
+<img src="/assets/output/science.png" height="400"/>
+<img src="/assets/output/queen.png" height="400"/>
 
 ### Comparison to [esimov/triangle](https://github.com/esimov/triangle)
 esimov/triangle seems to be a similar project to Triangula that is also written in Go. However, the two appear to generate very different styles. One big advantage of triangle is that it generates an image almost instantaneously, while Triangula needs to run many iterations. 
