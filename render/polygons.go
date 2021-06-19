@@ -10,7 +10,7 @@ import (
 
 type PolygonData struct {
 	Polygon normgeom.NormPolygon
-	Color    color.RGB
+	Color   color.RGB
 }
 
 func PolygonsOnImage(polygons []geom.Polygon, image image.Data) []PolygonData {
@@ -43,11 +43,10 @@ func PolygonsOnImage(polygons []geom.Polygon, image image.Data) []PolygonData {
 
 		data := PolygonData{
 			Polygon: poly.ToNorm(w, h),
-			Color:    color.Average(),
+			Color:   color.Average(),
 		}
 		polygonData[i] = data
 	}
 
 	return polygonData
 }
-

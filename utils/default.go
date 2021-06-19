@@ -12,7 +12,7 @@ import (
 )
 
 // DefaultAlgorithm returns an algorithm than will be optimal for almost all cases
-func DefaultAlgorithm(numPoints int, image image.Image) algorithm.Algorithm{
+func DefaultAlgorithm(numPoints int, image image.Image) algorithm.Algorithm {
 	img := imageData.ToData(image)
 
 	pointFactory := func() normgeom.NormPointGroup {

@@ -23,7 +23,7 @@ type TriangleCacheData struct {
 	bX, bY  int16
 	cX, cY  int16
 	fitness float64
-	hash uint32
+	hash    uint32
 }
 
 func (t TriangleCacheData) Data() float64 {
@@ -57,7 +57,7 @@ func (t *TriangleCacheData) SetCachedHash(hash uint32) {
 type PolygonCacheData struct {
 	coords  []int16
 	fitness float64
-	hash uint32
+	hash    uint32
 }
 
 func (p PolygonCacheData) CachedHash() uint32 {
@@ -92,7 +92,7 @@ func (p PolygonCacheData) Hash() uint64 {
 
 	hash := uint64(1)
 
-	for i := 0; i < len(p.coords); i++{
+	for i := 0; i < len(p.coords); i++ {
 		hash = hash*97 + uint64(p.coords[i])
 	}
 

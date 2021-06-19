@@ -25,7 +25,7 @@ type Delaunay struct {
 
 	ears []ear // For performance purposes.
 
-	numPoints int // The number of points in the triangulation (including duplicate points).
+	numPoints    int // The number of points in the triangulation (including duplicate points).
 	uniquePoints int
 }
 

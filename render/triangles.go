@@ -48,4 +48,3 @@ func TrianglesOnImage(triangles []geom.Triangle, image image.Data) []TriangleDat
 
 	return triangleData
 }
-

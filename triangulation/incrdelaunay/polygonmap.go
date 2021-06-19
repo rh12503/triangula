@@ -59,6 +59,6 @@ func (pm polygonMap) IterPolygons(polygon func([]FloatPoint)) {
 
 // pointEntry is used to keep track of a point and how many copies of a point there are.
 type polygonEntry struct {
-	point Point
+	point   Point
 	polygon []FloatPoint
 }

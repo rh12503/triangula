@@ -55,5 +55,5 @@ func ToData(image image.Image) RGBData {
 
 // convertColor is a utility function for converting uint32 RGB values to RGB values between 0 and 1.
 func convertColor(color uint32) float64 {
-	return float64(color >> 8) / 255
+	return float64(color>>8) / 255
 }

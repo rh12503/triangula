@@ -33,7 +33,7 @@ func TestTrianglesImageEvaluator_Calculate(t *testing.T) {
 	evaluator := NewTrianglesImageFunction(image2.ToData(img), blockSize)
 
 	assert.Equal(t, evaluator.Calculate(PointsData{
-		Points:    normgeom.NormPointGroup{
+		Points: normgeom.NormPointGroup{
 			{0.12, 0.2},
 			{0.73, 0.28},
 			{0.57, 0.15},

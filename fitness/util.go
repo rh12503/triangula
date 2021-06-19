@@ -18,4 +18,3 @@ func createPoint(x, y float64, w, h int) incrdelaunay.Point {
 		Y: int16(fastRound(y * float64(h))),
 	}
 }
-

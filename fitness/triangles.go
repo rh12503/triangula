@@ -32,7 +32,7 @@ type trianglesImageFunction struct {
 	Triangulation *incrdelaunay.Delaunay
 	// The triangulation of the points before being mutated accessed from the
 	// fitness function's base.
-	Base          *incrdelaunay.Delaunay
+	Base *incrdelaunay.Delaunay
 }
 
 // Calculate returns the fitness of a group of points.

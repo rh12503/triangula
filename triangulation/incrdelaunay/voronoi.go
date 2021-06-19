@@ -42,7 +42,6 @@ func (v *IVoronoi) Insert(point Point) {
 		v.addPointToUpdate(t.C)
 	})
 
-
 	v.delaunay.Insert(point)
 
 	for _, p := range v.pointsToUpdate {
