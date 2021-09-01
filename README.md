@@ -74,6 +74,9 @@ For almost all cases, only changing the number of points and leaving all other o
 <img src="/assets/output/science.png" height="400"/>
 <img src="/assets/output/queen.png" height="400"/>
 
+### Community Examples
+* [triangul4rt Instagram](https://www.instagram.com/triangul4rt/)
+
 ### Comparison to [esimov/triangle](https://github.com/esimov/triangle)
 esimov/triangle seems to be a similar project to Triangula that is also written in Go. However, the two appear to generate very different styles. One big advantage of triangle is that it generates an image almost instantaneously, while Triangula needs to run many iterations. 
 
