@@ -27,6 +27,30 @@ type Delaunay struct {
 
 	numPoints    int // The number of points in the triangulation (including duplicate points).
 	uniquePoints int
+
+	// Change tracking for delta-based fitness evaluation.
+	trackChanges bool
+	removedTris  []Triangle
+	addedTris    []Triangle
+}
+
+// BeginTrack enables change tracking. Subsequent Insert/Remove calls will record
+// which triangles are added and removed.
+func (d *Delaunay) BeginTrack() {
+	d.trackChanges = true
+	d.removedTris = d.removedTris[:0]
+	d.addedTris = d.addedTris[:0]
+}
+
+// EndTrack disables change tracking and returns the removed and added triangles.
+func (d *Delaunay) EndTrack() (removed, added []Triangle) {
+	d.trackChanges = false
+	return d.removedTris, d.addedTris
+}
+
+// SuperTriangle returns the super triangle used in the triangulation.
+func (d *Delaunay) SuperTriangle() Triangle {
+	return d.superTriangle
 }
 
 // NewDelaunay returns a new Delaunay triangulation.
@@ -233,6 +257,10 @@ func (d *Delaunay) addToHull(p Point) {
 
 // addTriangle adds a triangle to triangulation.
 func (d *Delaunay) addTriangle(t Triangle) {
+	if d.trackChanges {
+		d.addedTris = append(d.addedTris, t)
+	}
+
 	// First check if there are any free indexes available
 	if len(d.freeTriangles) > 0 {
 		// If there is an index available, add the triangle to the index
@@ -251,6 +279,9 @@ func (d *Delaunay) addTriangle(t Triangle) {
 // markFreeTriangle marks a triangle in the triangles slice as no longer being needed,
 // essentially removing the triangle from the triangulation.
 func (d *Delaunay) markFreeTriangle(i uint16) {
+	if d.trackChanges {
+		d.removedTris = append(d.removedTris, d.triangles[i])
+	}
 	d.triangles[i].A.X = -1 // Marks the triangle as invalid
 	d.freeTriangles = append(d.freeTriangles, i)
 }
