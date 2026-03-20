@@ -17,7 +17,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Test
-        run: go test ./...
+        run: go test -race ./...
 
   test-cache:
     runs-on: ubuntu-latest
@@ -44,4 +44,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
       - name: Test
-        run: go test ./...
+        run: go test -race ./...
+      - name: Coverage
+        run: go test -coverprofile=coverage.out ./...
+      - name: Upload coverage
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: coverage.out

@@ -301,6 +301,9 @@ func (d *Delaunay) Set(other *Delaunay) {
 
 	d.grid.Set(&other.grid)
 	d.pointMap.Set(&other.pointMap)
+
+	d.numPoints = other.numPoints
+	d.uniquePoints = other.uniquePoints
 }
 
 // HasPoint returns whether the triangulation contains point p.
