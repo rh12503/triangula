@@ -1,6 +1,5 @@
 package incrdelaunay
 
-import "C"
 import (
 	"math"
 )

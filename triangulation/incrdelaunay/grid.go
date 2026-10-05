@@ -20,9 +20,9 @@ func NewCircumcircleGrid(cols, rows, w, h int) CircumcircleGrid {
 	c.colPixels = float64(w) / float64(cols)
 	c.rowPixels = float64(h) / float64(rows)
 
-	c.triangles = make([][][]uint16, c.rows)
+	c.triangles = make([][][]uint16, c.cols)
 	for i := range c.triangles {
-		c.triangles[i] = make([][]uint16, c.cols)
+		c.triangles[i] = make([][]uint16, c.rows)
 	}
 	return c
 }
