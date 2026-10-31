@@ -37,12 +37,13 @@ func NewData(w, h int) RGBData {
 
 // ToData converts an image.Image to a RGBData.
 func ToData(image image.Image) RGBData {
-	data := NewData(image.Bounds().Max.X, image.Bounds().Max.Y)
+	bounds := image.Bounds()
+	data := NewData(bounds.Dx(), bounds.Dy())
 
 	for y := range data.pixels {
 		for x := range data.pixels[y] {
 			col := &data.pixels[y][x]
-			r, g, b, _ := image.At(x, y).RGBA()
+			r, g, b, _ := image.At(x+bounds.Min.X, y+bounds.Min.Y).RGBA()
 
 			col.R = convertColor(r)
 			col.G = convertColor(g)
